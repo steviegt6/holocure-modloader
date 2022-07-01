@@ -1,4 +1,4 @@
-*I am writing this at four in the morning, an hour before I go to the gym. I have not slept. Excuse me for any incoherent ramblings.*
+*This project has, thus far, been developed on zero hours of sleep. Expect inevitable incoherency.*
 
 ---
 
