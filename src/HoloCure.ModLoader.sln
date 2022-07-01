@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.API", "H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.Updater", "HoloCure.ModLoader.Updater\HoloCure.ModLoader.Updater.csproj", "{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.API", "HoloCure.API\HoloCure.API.csproj", "{13E081FF-D94F-47A8-B303-D0793723394A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E081FF-D94F-47A8-B303-D0793723394A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E081FF-D94F-47A8-B303-D0793723394A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E081FF-D94F-47A8-B303-D0793723394A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E081FF-D94F-47A8-B303-D0793723394A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

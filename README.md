@@ -21,6 +21,7 @@ Despite the naming, HoloCure.ModLoader projects may be used for other purposes.
 | Project | Description |
 |---------|-------------|
 | `HoloCure.ModLoader` | The CLI application and HoloCure mod loader. Contains code specific to HoloCure, not very reusable. |
+| `HoloCure.API` | The base mod, powered by `HoloCure.ModLoader.API`. Providers various APIs and patches to the game to facilitate mod loading. |
 | `HoloCure.ModLoader.API` | The GameMaker modding API, designed to be general-purpose and reusable. `HoloCure.ModLoader` interfaces with this. |
 | `HoloCure.ModLoader.Updater` | Simple abstractions to partially simplify handling updates. |
 | `UndertaleModLib` | Submodule clone of [krzys-h/UndertaleModTool](https://github.com/krzys-h/UndertaleModTool/tree/master), used for modifying GameMaker data. |
