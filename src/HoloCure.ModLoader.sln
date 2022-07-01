@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndertaleModLib", "lib\UndertaleModTool\UndertaleModLib\UndertaleModLib.csproj", "{E2174012-6D2E-481A-A6C1-978E25613D92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffPatch", "lib\DiffPatch\DiffPatch.csproj", "{00A24CB6-D68F-44CA-8C4D-CC261869C32B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader", "HoloCure.ModLoader\HoloCure.ModLoader.csproj", "{40F93AB6-5645-4EE3-9B0D-DF07589D241D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.API", "HoloCure.ModLoader.API\HoloCure.ModLoader.API.csproj", "{51BC263D-5E99-4D21-B9BE-83B9D439388A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +18,23 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A24CB6-D68F-44CA-8C4D-CC261869C32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A24CB6-D68F-44CA-8C4D-CC261869C32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A24CB6-D68F-44CA-8C4D-CC261869C32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A24CB6-D68F-44CA-8C4D-CC261869C32B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F93AB6-5645-4EE3-9B0D-DF07589D241D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F93AB6-5645-4EE3-9B0D-DF07589D241D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F93AB6-5645-4EE3-9B0D-DF07589D241D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F93AB6-5645-4EE3-9B0D-DF07589D241D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BC263D-5E99-4D21-B9BE-83B9D439388A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BC263D-5E99-4D21-B9BE-83B9D439388A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BC263D-5E99-4D21-B9BE-83B9D439388A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BC263D-5E99-4D21-B9BE-83B9D439388A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

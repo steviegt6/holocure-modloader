@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LanguageVersion>latest</LanguageVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\lib\DiffPatch\DiffPatch.csproj" />
+      <ProjectReference Include="..\lib\UndertaleModTool\UndertaleModLib\UndertaleModLib.csproj" />
+    </ItemGroup>
+
+</Project>
