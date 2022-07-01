@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using HoloCure.ModLoader.API.Platform;
+using UndertaleModLib;
 
 namespace HoloCure.ModLoader.API
 {
@@ -25,6 +26,9 @@ namespace HoloCure.ModLoader.API
             };
 
             foreach (string path in ModResolutionPaths) Directory.CreateDirectory(path);
+        }
+
+        public void PatchGame(UndertaleData game) {
         }
     }
 }

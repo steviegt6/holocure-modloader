@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using HoloCure.ModLoader.Updater;
+using Spectre.Console;
 
 namespace HoloCure.ModLoader
 {
@@ -18,8 +19,7 @@ namespace HoloCure.ModLoader
             if (Release is null) return false;
 
             // TODO: Add some form of auto-updating eventually:tm:.
-            Console.WriteLine($"Update available: {version} -> {Release.TagName}.");
-            Console.WriteLine($"Download it @ {GitHubReleaseUrl}");
+            AnsiConsole.MarkupLine($"[white]Update available: [red]{version}[/] -> [yellow]{Release.TagName}[/].[/]");
             return true;
         }
     }
