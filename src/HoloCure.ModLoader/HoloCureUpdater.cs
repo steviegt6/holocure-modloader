@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using HoloCure.ModLoader.Updater;
 
@@ -9,7 +10,7 @@ namespace HoloCure.ModLoader
         public override string GitHubReleaseUrl => "https://api.github.com/repos/steviegt6/holocure-modloader/releases/latest";
         
         public override bool CanUpdate() {
-            return true;
+            return !Debugger.IsAttached;
         }
 
         public override async Task<bool> CheckUpdate(string version) {
