@@ -5,10 +5,13 @@
         <TargetFramework>net6.0</TargetFramework>
         <LanguageVersion>latest</LanguageVersion>
         <Nullable>enable</Nullable>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\HoloCure.ModLoader.API\HoloCure.ModLoader.API.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.Updater\HoloCure.ModLoader.Updater.csproj" />
     </ItemGroup>
 
     <ItemGroup>
