@@ -1,4 +1,6 @@
-﻿using HoloCure.ModLoader.API.Platform;
+﻿using System.Collections.Generic;
+using System.IO;
+using HoloCure.ModLoader.API.Platform;
 
 namespace HoloCure.ModLoader.API
 {
@@ -6,6 +8,7 @@ namespace HoloCure.ModLoader.API
     {
         public readonly string GameName;
         public readonly IStorage Storage;
+        public readonly List<string> ModResolutionPaths;
 
         protected readonly ModAssemblyResolver ModAssemblyResolver;
 
@@ -14,6 +17,14 @@ namespace HoloCure.ModLoader.API
             Storage = new GameModStorage(gameName);
 
             ModAssemblyResolver = new ModAssemblyResolver();
+
+            ModResolutionPaths = new List<string>
+            {
+                Path.Combine(Storage.BasePath, "mods"),
+                "mods"
+            };
+
+            foreach (string path in ModResolutionPaths) Directory.CreateDirectory(path);
         }
     }
 }

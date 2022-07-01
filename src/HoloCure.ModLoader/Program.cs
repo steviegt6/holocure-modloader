@@ -26,7 +26,7 @@ namespace HoloCure.ModLoader
             Console.WriteLine("Loading game data...");
             UndertaleData data = LoadGameData();
             Console.WriteLine("Loaded game data, got game: " + data.GeneralInfo.Name);
-            Loader loader = new(data.GeneralInfo.Name.ToString());
+            Loader loader = new(data.GeneralInfo.Name.Content);
         }
 
         private static void VerifyDataExists() {

@@ -5,8 +5,9 @@
         <TargetFramework>net6.0</TargetFramework>
         <LanguageVersion>latest</LanguageVersion>
         <Nullable>enable</Nullable>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <AssemblyVersion>0.1.0</AssemblyVersion>
+        <FileVersion>0.1.0</FileVersion>
+        <PackageVersion>0.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
