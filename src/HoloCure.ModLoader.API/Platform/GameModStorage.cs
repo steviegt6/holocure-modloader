@@ -17,7 +17,7 @@ namespace HoloCure.ModLoader.API.Platform
         
         public GameModStorage(string gameName) : this(ResolveStorage(), gameName) { }
         
-        private static IStorage ResolveStorage() {
+        public static IStorage ResolveStorage() {
             if (OperatingSystem.IsWindows()) return new WindowsStorage();
             if (OperatingSystem.IsMacOS()) return new MacStorage();
             if (OperatingSystem.IsLinux()) return new LinuxStorage();

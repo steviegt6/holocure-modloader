@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="CliFx" Version="2.2.6" />
       <PackageReference Include="Spectre.Console" Version="0.44.0" />
     </ItemGroup>
 
