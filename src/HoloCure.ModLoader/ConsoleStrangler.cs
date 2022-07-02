@@ -20,6 +20,7 @@ namespace HoloCure.ModLoader
             while (!Console.KeyAvailable && !DelayPassed) { }
 
             Completed = true;
+            Console.ReadKey(true);
             await Task.CompletedTask;
         }
 
