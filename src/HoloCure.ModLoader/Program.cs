@@ -59,8 +59,8 @@ namespace HoloCure.ModLoader
                 LogLevels.Info
             );
             Logger.MarkupMessage(
-                "Get support and talk @ [blue underline]https://discord.gg/Y8bvvqyFQw[/]\n",
-                "Get support and talk @ https://discord.gg/Y8bvvqyFQw\n",
+                "Get support and talk @ [blue underline]https://discord.gg/Y8bvvqyFQw[/]",
+                "Get support and talk @ https://discord.gg/Y8bvvqyFQw",
                 LogLevels.Info
             );
         }
@@ -85,7 +85,7 @@ namespace HoloCure.ModLoader
                 Logger.LogMessage("No updates available.", LogLevels.Debug);
             }
 
-            Logger.LogMessageConsoleOnly("Wait 5 seconds or press any key to skip updating.\n", LogLevels.Warn);
+            Logger.LogMessageConsoleOnly("Wait 5 seconds or press any key to skip updating.", LogLevels.Warn);
             await new ConsoleStrangler().Strangle(5000);
         }
     }
