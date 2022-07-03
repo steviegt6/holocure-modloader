@@ -1,0 +1,14 @@
+name: "Ticket Labeler"
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  triage:
+    ruins-on: ubuntu-latest
+    steps:
+    - uses: github/issue-labeler@v2.5
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: .github/labelerConfg.yml
+        enable-versioned-regex: 0

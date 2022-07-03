@@ -1,0 +1,79 @@
+name: Bug Report
+description: Report an issue with the software.
+labels: ["severity: undecided", "status: unresolved", "type: bug report"]
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      This issue tracker is for suggestions and reporting issues and proposing changes. If you are not looking to do either of these things, and you are not sure that you should be using this tracker for anything else, please ask in the [Discord server](https://discord.gg/Y8bvvqyFQw) beforehand.
+
+      Please fill out all the necessary details. 
+
+- type: markdown
+  attributes:
+    value: |
+      ## Is there an existing ticket for this?
+      Please ensure that no one has already reported this issue.
+
+- type: checkboxes
+  attributes:
+    label: operating_system
+    description: What operating system does this issue reply to? (If you are not sure, just select the one you're using.)
+    multiple: false
+    options:
+      - label: Windows
+      - label: MacOS
+      - label: Linux
+      - label: Indiscriminate (OS does not affect the issue)
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Description
+    id: description
+    description: |
+      Describe your issue here.
+      Please keep this as concise. You may elaborate in a later text area. 
+      For example: "When I press X button in menu Y, the component Z becomes unclickable"
+
+- type: textarea
+  attributes:
+    label: Log Files
+    description: |
+      Attach your .log files here. They can be found in the `Logs` subdirectory of your save directory.
+
+- type: textarea
+  attributes:
+    label: Steps to reproduce
+    description: Please describe the steps to reproduce this issue.
+    placeholder: |
+      1. [First Step]
+      2. [Second Step]
+      3. [And so on...]
+
+- type: textarea
+  attributes:
+    label: Expected behavior
+    description: |
+      What should be happening? If you don't know, leave what you think should happen.
+
+- type: textarea
+  attributes:
+    label: Actual behavior
+    description: |
+      What is actually happening? Feel free to use images to help describe what you are experiencing.
+      
+- type: textarea
+  attributes:
+    label: Reproduction frequency
+    description: |
+      How often are you able to reproduce the issue? How reliable is the reproduction?
+
+- type: textarea
+  attributes:
+    label: Additional information
+    description: |
+       Any additional information, configuration, or data that might be necessary to reproduce the issue.
+       You may use this to elaborate on the description.

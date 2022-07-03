@@ -1,8 +1,8 @@
 blank_issues_enabled: false # we provide an existing template that basically acts as a blank issue
 
 contact_links:
- - name: Discord Server
-   url: https://discord.gg/Y8bvvqyFQw
-   about: |
-    Please direct questions and concerns here. This issue tracker is for reporting issues.
-    Not sure if your issue has been brought to our attention yet? Have other questions? The best place to check is here.
+- name: Discord Server
+  url: https://discord.gg/Y8bvvqyFQw
+  about: |
+   Please direct questions and concerns here. This issue tracker is for reporting issues.
+   Not sure if your issue has been brought to our attention yet? Have other questions? The best place to check is here.
