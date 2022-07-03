@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'misc: safe to test')
+    if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, "misc':' safe to test")
 
     steps:
     - uses: actions/checkout@v3
