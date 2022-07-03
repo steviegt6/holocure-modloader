@@ -27,7 +27,6 @@ namespace HoloCure.ModLoader.API
             ModResolutionPaths = new List<string>
             {
                 Path.Combine(Storage.BasePath, "mods"),
-                "mods"
             };
 
             foreach (string path in ModResolutionPaths) Directory.CreateDirectory(path);
