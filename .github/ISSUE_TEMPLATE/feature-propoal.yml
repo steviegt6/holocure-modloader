@@ -1,0 +1,45 @@
+name: Feature Proposal
+description: Propose a new feature/a change for HoloCure.ModLoader projects.
+labels: ["severity: undecided", "status: unresolved", "type: feature proposal"]
+
+body:
+- type: markdown
+  attributes:
+    value: |
+      This issue tracker is for suggestions and reporting issues and proposing changes. If you are not looking to do either of these things, and you are not sure that you should be using this tracker for anything else, please ask in the [Discord server](https://discord.gg/Y8bvvqyFQw) beforehand.
+
+      Please fill out all the necessary details. 
+
+- type: markdown
+  attributes:
+    value: |
+      HoloCure.ModLoader is maintained by contributors.
+      Consider making a pull request to implement this feature yourself after discussion.
+      You should expect proposals to have heavy discussion and consideration before any action is taken.
+
+- type: markdown
+  attributes:
+    value: |
+      ## Is there an existing ticket for this?
+      Please ensure that no one has already proposed this feature.
+
+- type: textarea
+  id: description
+  attributes:
+    label: Description
+    description: |
+      Describe your proposal briefly. 
+
+- type: textarea
+  id: why
+  attributes:
+    label: What does this proposal attempt to solve or improve?
+    description: |
+      Describe use-cases for this proposed feature. How many it benefit users? Should this be included in Tea Framework?
+
+- type: textarea
+  id: alternatives
+  attributes:
+    label: What (other) solutions may be considered?
+    description: |
+      Are there alternatives to your proposal? Please list them here.
