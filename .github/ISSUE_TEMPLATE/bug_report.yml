@@ -16,10 +16,11 @@ body:
       ## Is there an existing ticket for this?
       Please ensure that no one has already reported this issue.
 
-- type: checkboxes
+- type: dropdown
   attributes:
-    label: operating_system
+    label: Operating System(s)
     description: What operating system does this issue reply to? (If you are not sure, just select the one you're using.)
+    multiple: true
     options:
       - label: Windows
       - label: MacOS
