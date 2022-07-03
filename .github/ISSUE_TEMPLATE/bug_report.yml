@@ -16,16 +16,30 @@ body:
       ## Is there an existing ticket for this?
       Please ensure that no one has already reported this issue.
 
-- type: dropdown
+- type: checkboxes
   attributes:
     label: Operating System(s)
-    description: What operating system does this issue reply to? (If you are not sure, just select the one you're using.)
-    multiple: true
+    description: What operating system does this issue apply to? (If you are not sure, just select the one you're using.)
     options:
-      - "APPLIES TO: Windows"
-      - "APPLIES TO: MacOS"
-      - "APPLIES TO: Linux"
-      - "APPLIES TO: Indiscriminate (OS does not affect the issue)"
+      - label: Windows
+      - label: MacOS
+      - label: Linux
+      - label: Indiscriminate (OS does not affect the issue)
+  validations:
+    required: true
+
+- type: checkboxes
+  attributes:
+    label: Applicable Projects
+    description: What projects are related to this issue? (If you are not sure, just select `HoloCure.ModLoader`.)
+    options:
+      - label: `HoloCure.API`
+      - label: `HoloCure.ModLoader.API`
+      - label: `HoloCure.ModLoader.Logging`
+      - label: `HoloCure.ModLoader.Updater`
+      - label: `HoloCure.ModLoader`
+      - label: `CodeChicken.DiffPatch`
+      - label: `UndertaleModLib`
   validations:
     required: true
 
