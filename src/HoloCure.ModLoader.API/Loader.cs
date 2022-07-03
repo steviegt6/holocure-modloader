@@ -20,7 +20,7 @@ namespace HoloCure.ModLoader.API
             GameName = gameName;
             Storage = new GameModStorage(gameName);
             
-            Logger = new LogWriter(Path.Combine(Path.GetDirectoryName(Storage.BasePath)!, "Logs", "loader.log"), "Loader");
+            Logger = new LogWriter(Path.Combine(Path.GetDirectoryName(Storage.BasePath)!, "Logs", "loader.log"), "Loader", true);
 
             ModAssemblyResolver = new ModAssemblyResolver();
 

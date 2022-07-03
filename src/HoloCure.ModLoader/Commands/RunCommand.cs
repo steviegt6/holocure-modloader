@@ -8,6 +8,7 @@ using HoloCure.ModLoader.Config;
 using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Runners;
 using HoloCure.ModLoader.Utils;
+using Spectre.Console;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Commands
@@ -34,11 +35,26 @@ namespace HoloCure.ModLoader.Commands
             // Populate Game if applicable.
             Game ??= cfg.DefaultProfile;
 
+            if (LaunchConfig.Instance.Profiles.Count == 0) {
+                throw new IndexOutOfRangeException("No profiles exist in the config. Please make one first. Consider also setting the default profile.");
+            }
+
+            if (Game is null) {
+                Program.Logger.LogMessage("No game specified and no default profile is present.", LogLevels.Warn);
+                SelectionPrompt<string> prompt = new SelectionPrompt<string>()
+                                                .Title("[[Interactive]] Please select a profile:")
+                                                .PageSize(5)
+                                                .MoreChoicesText("(Move up/down to see more profiles)")
+                                                .AddChoices(LaunchConfig.Instance.Profiles.Keys);
+                Game = AnsiConsole.Prompt(prompt);
+            }
+
             // Get launch profile if present.
             LaunchProfile? profile = cfg.Profiles.ContainsKey(Game) ? cfg.Profiles[Game] : null;
 
+            // Probably shouldn't be able to happen now? I should check later.
             if (profile is null) {
-                throw new NullReferenceException("No profile specified with --game and the default profile is not set. Please specify the profile to launch.");
+                throw new NullReferenceException($"The chosen game, \"{Game}\", does not correspond with any existing profiles. Please make a profile first.");
             }
 
             // Get config-adjusted paths.

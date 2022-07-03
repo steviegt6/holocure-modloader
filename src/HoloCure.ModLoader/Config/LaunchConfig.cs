@@ -25,7 +25,7 @@ namespace HoloCure.ModLoader.Config
 
         [JsonProperty("default_profile")]
         [DefaultValue("")]
-        public string DefaultProfile { get; set; } = "";
+        public string? DefaultProfile { get; set; } = null;
 
         [JsonProperty("profiles")]
         public Dictionary<string, LaunchProfile> Profiles { get; set; } = new();

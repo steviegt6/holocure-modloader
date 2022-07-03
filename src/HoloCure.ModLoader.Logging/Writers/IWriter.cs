@@ -5,7 +5,9 @@
         string Source { get; }
         
         int MinimumLogLevel { get; }
-        
+
+        bool PrependSignature { get; }
+
         void WriteLine(string message, LogLevel level);
     }
 }

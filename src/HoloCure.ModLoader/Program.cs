@@ -7,26 +7,29 @@ using HoloCure.ModLoader.API.Platform;
 using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Logging.Writers;
 using HoloCure.ModLoader.Updater;
+using Spectre.Console;
 
 namespace HoloCure.ModLoader
 {
     internal static class Program
     {
         internal static readonly IStorage Storage = GameModStorage.ResolveStorage();
-        internal static readonly ILogWriter Logger;
-
-        private static readonly IProgramUpdatable Updater;
         
-        static Program() {
-            Logger = new LogWriter(Path.Combine(Storage.BasePath, "Logs", "launcher.log"), "Launcher");
-            Updater = new HoloCureUpdater(Logger);
-        }
+        internal static ILogWriter Logger = null!;
+
+        private static IProgramUpdatable Updater = null!;
 
         public static async Task<int> Main(string[] args) {
             try {
                 if (args.Length == 0) {
                     args = new[] {"run"};
                 }
+
+                string path = Path.Combine(Storage.BasePath, "Logs", "launcher.log");
+                const string source = "Launcher";
+                bool prepend = args.Contains("run");
+                Logger = new LogWriter(path, source, prepend, fileWriter: new ConditionalFileWriter(path, source, actuallyLog: prepend));
+                Updater = new HoloCureUpdater(Logger);
 
                 string version = typeof(Program).Assembly.GetName().Version!.ToString();
                 LogHeader(args, version);
@@ -38,13 +41,22 @@ namespace HoloCure.ModLoader
                 return await new CliApplicationBuilder().AddCommandsFromThisAssembly().Build().RunAsync(args);
             }
             catch (Exception e) {
-                Logger.LogMessage(
-                    "A fatal error was caught and the process must be aborted."
-                    + "\nBelow is the stacktrace, which you should share when requesting help.",
-                    LogLevels.Fatal
-                );
-                Logger.LogMessage(e.ToString(), LogLevels.Fatal);
-                return -1;
+                // Disable because this can be null exclusively in this method.
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                if (Logger is not null) {
+                    Logger.LogMessage(
+                        "A fatal error was caught and the process must be aborted."
+                        + "\nBelow is the stacktrace, which you should share when requesting help.",
+                        LogLevels.Fatal
+                    );
+                    Logger.LogMessage(e.ToString(), LogLevels.Fatal);
+                }
+                else {
+                    AnsiConsole.MarkupLine("[red]AN EXCEPTION WAS THROWN BEFORE LOGGING COULD BEGIN:[/]");
+                    AnsiConsole.WriteException(e);
+                }
+
+                return 1;
             }
         }
 

@@ -9,9 +9,12 @@ namespace HoloCure.ModLoader.Logging
         
         public int MinimumLogLevel { get; }
         
-        public ConsoleWriter(string source, int minimumLogLevel) {
+        public bool PrependSignature { get; }
+
+        public ConsoleWriter(string source, int minimumLogLevel, bool prependSignature) {
             Source = source;
             MinimumLogLevel = minimumLogLevel;
+            PrependSignature = prependSignature;
         }
 
         public virtual void WriteLine(string message, LogLevel level) {
@@ -27,7 +30,7 @@ namespace HoloCure.ModLoader.Logging
                         if (background.HasValue) AnsiConsole.Background = background.Value;
                     }
 
-                    AnsiConsole.Write(LogUtils.GetMessageSignature(DateTime.Now, level, Source));
+                    if (PrependSignature) AnsiConsole.Write(LogUtils.GetMessageSignature(DateTime.Now, level, Source));
                     AnsiConsole.WriteLine(msg);
                 });
             }
@@ -50,7 +53,7 @@ namespace HoloCure.ModLoader.Logging
                     if (AnsiConsole.Background != background)
                         color += " on #" + AnsiConsole.Background.ToHex();
 
-                    AnsiConsole.Write(LogUtils.GetMessageSignature(DateTime.Now, level, Source));
+                    if (PrependSignature) AnsiConsole.Write(LogUtils.GetMessageSignature(DateTime.Now, level, Source));
                     AnsiConsole.MarkupLine($"[{color}]" + msg + "[/]");
                 });
             }

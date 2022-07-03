@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using CliFx.Attributes;
-using HoloCure.ModLoader.Commands;
 using HoloCure.ModLoader.Config;
 using Spectre.Console;
 
-namespace HoloCure.ModLoader
+namespace HoloCure.ModLoader.Commands
 {
     [Command("list-profiles", Description = "Lists every profile in the user's config.")]
     public class ListProfilesCommand : BaseCommand
@@ -16,6 +15,8 @@ namespace HoloCure.ModLoader
         public bool DisplayDefault { get; set; } = true;
 
         protected override ValueTask ExecuteAsync() {
+            AnsiConsole.WriteLine();
+
             if (DisplayDefault) {
                 AnsiConsole.MarkupLine($"Default profile: [white]{LaunchConfig.Instance.DefaultProfile}[/]\n");
             }
@@ -28,7 +29,7 @@ namespace HoloCure.ModLoader
             int num = 0;
             foreach ((string name, LaunchProfile profile) in LaunchConfig.Instance.Profiles) {
                 num++;
-                
+
                 AnsiConsole.MarkupLine($"{num}. [white]{name}[/]{(Verbose ? ':' : "")}");
 
                 if (!Verbose) {
