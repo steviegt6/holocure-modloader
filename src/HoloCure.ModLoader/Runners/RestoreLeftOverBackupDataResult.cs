@@ -1,9 +1,9 @@
 ﻿namespace HoloCure.ModLoader.Runners
 {
-    public enum RestoreBackupDataResult
+    public enum RestoreLeftOverBackupDataResult
     {
-        MissingFile,
         PermissionError,
+        Skipped,
         Success
     }
 }

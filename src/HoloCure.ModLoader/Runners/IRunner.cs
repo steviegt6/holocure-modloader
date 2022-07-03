@@ -14,16 +14,14 @@ namespace HoloCure.ModLoader.Runners
         RunnerReturnCtx<bool> DataExists();
 
         /// <summary>
-        ///     Restores the data file from a backup file.
+        ///     Restore backup data if it was not cleared upon exiting due to an error.
         /// </summary>
-        /// <param name="allowFirstLaunch">Whether to permit missing backups.</param>
-        RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData(bool allowFirstLaunch = true);
+        RunnerReturnCtx<RestoreLeftOverBackupDataResult> RestoreLeftoverBackupData();
 
         /// <summary>
         ///     Backs up the data file by writing it to disk.
         /// </summary>
-        /// <param name="skipOverwrite">Skip writing a backup if it already exists.</param>
-        RunnerReturnCtx<BackupDataResult> BackupData(bool skipOverwrite = false);
+        RunnerReturnCtx<BackupDataResult> BackupData();
 
         /// <summary>
         ///     Loads game data to an <see cref="UndertaleData"/> instance.
@@ -41,5 +39,7 @@ namespace HoloCure.ModLoader.Runners
         /// </summary>
         /// <returns>The status result and the associated game process. The process will be null if it failed to launch.</returns>
         RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame();
+
+        RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData();
     }
 }

@@ -24,27 +24,23 @@ namespace HoloCure.ModLoader.Runners
             return MakeReturnCtx(File.Exists(GamePath));
         }
 
-        public RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData(bool allowFirstLaunch = true) {
+        public RunnerReturnCtx<RestoreLeftOverBackupDataResult> RestoreLeftoverBackupData() {
             if (!File.Exists(BackupPath)) {
-                return MakeReturnCtx(allowFirstLaunch ? RestoreBackupDataResult.Skipped : RestoreBackupDataResult.MissingBackupFile);
-            }
-
-            if (!File.Exists(GamePath)) {
-                return MakeReturnCtx(RestoreBackupDataResult.MissingDataFile);
+                return MakeReturnCtx(RestoreLeftOverBackupDataResult.Skipped);
             }
 
             try {
                 File.Copy(BackupPath, GamePath, true);
             }
             catch (UnauthorizedAccessException) {
-                return MakeReturnCtx(RestoreBackupDataResult.PermissionError);
+                return MakeReturnCtx(RestoreLeftOverBackupDataResult.PermissionError);
             }
 
-            return MakeReturnCtx(RestoreBackupDataResult.Success);
+            return MakeReturnCtx(RestoreLeftOverBackupDataResult.Success);
         }
 
-        public RunnerReturnCtx<BackupDataResult> BackupData(bool skipOverwrite = false) {
-            if (skipOverwrite && File.Exists(BackupPath)) {
+        public RunnerReturnCtx<BackupDataResult> BackupData() {
+            if (File.Exists(BackupPath)) {
                 return MakeReturnCtx(BackupDataResult.Skipped);
             }
 
@@ -123,7 +119,23 @@ namespace HoloCure.ModLoader.Runners
 
             return Ctx(proc is null ? ExecuteGameResult.ProcessNull : ExecuteGameResult.Success, proc);
         }
-        
+
+        public RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData() {
+            if (!File.Exists(BackupPath)) {
+                return MakeReturnCtx(RestoreBackupDataResult.MissingFile);
+            }
+
+            try {
+                File.Copy(BackupPath, GamePath, true);
+                File.Delete(BackupPath);
+            }
+            catch (UnauthorizedAccessException) {
+                return MakeReturnCtx(RestoreBackupDataResult.PermissionError);
+            }
+
+            return MakeReturnCtx(RestoreBackupDataResult.Success);
+        }
+
         protected RunnerReturnCtx<T> MakeReturnCtx<T>(T value) {
             return new RunnerReturnCtx<T>(value, GamePath, BackupPath, RunnerPath);
         }

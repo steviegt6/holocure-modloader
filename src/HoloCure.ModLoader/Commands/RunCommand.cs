@@ -49,7 +49,7 @@ namespace HoloCure.ModLoader.Commands
             IRunner runner = GetPlatformDependantRunner(GamePath, BackupPath, RunnerPath);
 
             VerifyDataExists(runner);
-            RestoreBackupData(runner);
+            RestoreLeftoverBackupData(runner);
             BackupGameData(runner);
 
             Program.Logger.MarkupMessage(
@@ -65,6 +65,7 @@ namespace HoloCure.ModLoader.Commands
 
             WriteGameData(data, runner);
             await ExecuteGame(runner);
+            RestoreBackupData(runner);
         }
 
         // TODO: Config option to override the runner used? IDK.
@@ -86,26 +87,24 @@ namespace HoloCure.ModLoader.Commands
             }
         }
 
-        private void RestoreBackupData(IRunner runner) {
-            Program.Logger.LogMessage("Restoring backup data...", LogLevels.Debug);
-            RunnerReturnCtx<RestoreBackupDataResult> ctx = runner.RestoreBackupData();
+        private void RestoreLeftoverBackupData(IRunner runner) {
+            Program.Logger.LogMessage("Restoring leftover backup data...", LogLevels.Debug);
+            RunnerReturnCtx<RestoreLeftOverBackupDataResult> ctx = runner.RestoreLeftoverBackupData();
 
             switch (ctx.Value) {
-                case RestoreBackupDataResult.MissingBackupFile:
-                    throw new FileNotFoundException("Could not find backup data file, expected at: " + ctx.BackupName);
-
-                case RestoreBackupDataResult.MissingDataFile:
-                    throw new FileNotFoundException("Could not find game data file, expected at: " + ctx.FileName);
-
-                case RestoreBackupDataResult.PermissionError:
+                case RestoreLeftOverBackupDataResult.PermissionError:
+                    // TODO: Mention issue deleting backup as well. Split, maybe?
                     throw new UnauthorizedAccessException("Cannot overwrite game data at: " + ctx.FileName);
 
-                case RestoreBackupDataResult.Skipped:
-                    Program.Logger.LogMessage("Backup file not found, assuming first launch and skipping restoration...", LogLevels.Debug);
+                case RestoreLeftOverBackupDataResult.Skipped:
+                    Program.Logger.LogMessage(
+                        "Backup file not found, assuming either the program successfully exited previously or this is a first launch, skipping...",
+                        LogLevels.Debug
+                    );
                     break;
 
-                case RestoreBackupDataResult.Success:
-                    Program.Logger.LogMessage("Restored game data to saved a backup file.", LogLevels.Debug);
+                case RestoreLeftOverBackupDataResult.Success:
+                    Program.Logger.LogMessage("Restored game data from backup file. The mod loader did not successfully close last session.", LogLevels.Warn);
                     break;
 
                 default:
@@ -202,6 +201,26 @@ namespace HoloCure.ModLoader.Commands
             }
 
             await ctx.Value.proc!.WaitForExitAsync();
+        }
+
+        private void RestoreBackupData(IRunner runner) {
+            Program.Logger.LogMessage("Game exited, restoring saved backup data...", LogLevels.Debug);
+            RunnerReturnCtx<RestoreBackupDataResult> ctx = runner.RestoreBackupData();
+
+            switch (ctx.Value) {
+                case RestoreBackupDataResult.MissingFile:
+                    throw new FileNotFoundException("Missing backup file (how did this happen?), expected at: " + ctx.FileName);
+                
+                case RestoreBackupDataResult.PermissionError:
+                    // TODO: Blah blah blah message about deleting too.
+                    throw new UnauthorizedAccessException("Cannot overwrite game data at: " + ctx.FileName);
+                
+                case RestoreBackupDataResult.Success:
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         #endregion
