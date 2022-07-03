@@ -1,4 +1,5 @@
-﻿using UndertaleModLib;
+﻿using System.Reflection;
+using UndertaleModLib;
 
 namespace HoloCure.ModLoader.API
 {
@@ -8,9 +9,39 @@ namespace HoloCure.ModLoader.API
     public interface IMod
     {
         /// <summary>
+        ///     This mod's assembly.
+        /// </summary>
+        Assembly? Assembly { get; set; }
+
+        /// <summary>
+        ///     This mod's assembly resolver.
+        /// </summary>
+        ModAssemblyResolver.Resolver? AssemblyResolver { get; set; }
+
+        /// <summary>
+        ///     This mod's metadata file.
+        /// </summary>
+        ModMetadata? Metadata { get; set; }
+
+        /// <summary>
+        ///     Called once this mod has been loaded.
+        /// </summary>
+        void Load();
+
+        /// <summary>
+        ///     Called when this mod is about to be unloaded.
+        /// </summary>
+        void Unload();
+        
+        /// <summary>
         ///     Invoked when the game is ready to be patched.
         /// </summary>
         /// <param name="gameData">The loaded game's data, which should be patched.</param>
         void PatchGame(UndertaleData gameData);
+
+        /// <summary>
+        ///     Executed once the game as been started.
+        /// </summary>
+        void GameStarted();
     }
 }

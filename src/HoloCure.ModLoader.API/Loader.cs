@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using HoloCure.ModLoader.API.Platform;
 using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Logging.Writers;
 using UndertaleModLib;
+
+[assembly: InternalsVisibleTo("HoloCure.ModLoader.API.Tests")]
 
 namespace HoloCure.ModLoader.API
 {
@@ -19,7 +22,7 @@ namespace HoloCure.ModLoader.API
         public Loader(string gameName) {
             GameName = gameName;
             Storage = new GameModStorage(gameName);
-            
+
             Logger = new LogWriter(Path.Combine(Path.GetDirectoryName(Storage.BasePath)!, "Logs", "loader.log"), "Loader", true);
 
             ModAssemblyResolver = new ModAssemblyResolver();

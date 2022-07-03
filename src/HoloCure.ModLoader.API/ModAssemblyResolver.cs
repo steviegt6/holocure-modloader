@@ -17,17 +17,16 @@ namespace HoloCure.ModLoader.API
     {
         // Raw code adapted from: https://www.codeproject.com/Articles/1194332/Resolving-Assemblies-in-NET-Core
         // Adapted under The Code Project Open License (CPOL) 1.02: https://www.codeproject.com/info/cpol10.aspx
-        private class Resolver
+        public class Resolver
         {
             public readonly Assembly Assembly;
 
-            private readonly Resolver[]? Dependencies;
+            private readonly List<Resolver> Dependencies = new();
             private readonly DependencyContext DependencyContext;
             private readonly CompositeCompilationAssemblyResolver AssemblyResolver;
             private readonly AssemblyLoadContext? AssemblyLoadContext;
 
-            public Resolver(string assembly, Resolver[]? dependencies) {
-                Dependencies = dependencies;
+            public Resolver(string assembly) {
                 Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assembly);
 
                 DependencyContext = DependencyContext.Load(Assembly);
@@ -41,6 +40,10 @@ namespace HoloCure.ModLoader.API
                 AssemblyLoadContext = AssemblyLoadContext.GetLoadContext(Assembly);
             }
 
+            public void AddDependency(Resolver resolver) {
+                Dependencies.Add(resolver);
+            }
+
             public void Subscribe() {
                 if (AssemblyLoadContext is null) return;
                 AssemblyLoadContext.Resolving += HandleLoadAssembly;
@@ -51,19 +54,17 @@ namespace HoloCure.ModLoader.API
                 AssemblyLoadContext.Resolving += HandleLoadAssembly;
             }
 
-            public Assembly? HandleLoadAssembly(AssemblyLoadContext context, AssemblyName name) {
+            private Assembly? HandleLoadAssembly(AssemblyLoadContext context, AssemblyName name) {
                 bool NamesMatch(RuntimeLibrary library) {
                     return string.Equals(library.Name, name.Name, StringComparison.OrdinalIgnoreCase);
                 }
 
                 // Loop through dependencies to retrieve their libraries before using the mods provided by this resolver.
                 // :coolandgood:
-                if (Dependencies is not null) {
-                    foreach (Resolver resolver in Dependencies) {
-                        Assembly? assembly = resolver.HandleLoadAssembly(context, name);
+                foreach (Resolver resolver in Dependencies) {
+                    Assembly? assembly = resolver.HandleLoadAssembly(context, name);
 
-                        if (assembly is not null) return assembly;
-                    }
+                    if (assembly is not null) return assembly;
                 }
 
                 RuntimeLibrary? library = DependencyContext.RuntimeLibraries.FirstOrDefault(NamesMatch);
@@ -84,29 +85,6 @@ namespace HoloCure.ModLoader.API
                 AssemblyResolver.TryResolveAssemblyPaths(wrapper, assemblies);
 
                 return assemblies.Count != 0 ? AssemblyLoadContext?.LoadFromAssemblyPath(assemblies[0]) : null;
-            }
-        }
-
-        private class LoadedMod : IMod
-        {
-            private readonly IMod Mod;
-            private readonly Resolver Resolver;
-
-            public LoadedMod(IMod mod, Resolver resolver) {
-                Mod = mod;
-                Resolver = resolver;
-            }
-
-            public void Load() {
-                Resolver.Subscribe();
-            }
-
-            public void Unload() {
-                Resolver.Unsubscribe();
-            }
-
-            public void PatchGame(UndertaleData gameData) {
-                Mod.PatchGame(gameData);
             }
         }
     }
