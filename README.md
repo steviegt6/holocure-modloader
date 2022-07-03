@@ -6,6 +6,10 @@ HoloCure Mod Loader and Modding API
 
 I love modding, you love modding, everyone loves modding; what's not to love? HoloCure.ModLoader is a [free and open-source](https://en.wikipedia.org/wiki/Free_and_open-source_software) mod loader and modding API for [HoloCure](https://kay-yu.itch.io/holocure). You should check it out if you haven't already.
 
+## Licensing
+
+Any projects making use of UndertaleModTool (in our case, specifically any projects using the UndertaleModLib project) is licensed under the GPlv3 license (see LICENSE-GPL3). Any project not using UndertaleModTool or any projects that make use of it are licensed under the MIT license (see LICENSE-MIT).
+
 ## Building
 
 If you would like to build this project from source instead of grabbing a pre-built release binary, you may do so by cloning this repository, restoring submodules, and building `./src/HoloCure.ModLoader.sln`.
