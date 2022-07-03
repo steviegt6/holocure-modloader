@@ -22,10 +22,10 @@ body:
     description: What operating system does this issue reply to? (If you are not sure, just select the one you're using.)
     multiple: true
     options:
-      - label: Windows
-      - label: MacOS
-      - label: Linux
-      - label: Indiscriminate (OS does not affect the issue)
+      - Windows
+      - MacOS
+      - Linux
+      - Indiscriminate (OS does not affect the issue)
   validations:
     required: true
 
