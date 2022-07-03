@@ -1,0 +1,34 @@
+# Operating Systems
+"os: windows":
+  - "[x] Windows"
+
+"os: mac":
+  - "[x] MacOS"
+
+"os: linux":
+  - "[x] Linux"
+
+"os: indiscriminate":
+  - "[x] Indiscriminate"
+
+# Projects
+"project: holocure.api":
+ - "[x] HoloCure.API"
+
+"project: holocure.modloader.api":
+ - "[x] HoloCure.ModLoader.API"
+
+"project: holocure.modloader.logging":
+ - "[x] HoloCure.ModLoader.Logging"
+
+"project: holocure.modloader.updater":
+ - "[x] HoloCure.ModLoader.Updater"
+
+"project: holocure.modloader":
+ - "[x] HoloCure.ModLoader"
+
+"project: codechicken.diffpatch":
+ - "[x] CodeChicken.DiffPath"
+
+"project: undertalemodlib":
+ - "[x] UndertaleModLib"
