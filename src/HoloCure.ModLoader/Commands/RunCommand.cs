@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using CliFx.Attributes;
 using HoloCure.ModLoader.API;
 using HoloCure.ModLoader.Config;
+using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Runners;
 using HoloCure.ModLoader.Utils;
-using Spectre.Console;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Commands
@@ -30,40 +30,35 @@ namespace HoloCure.ModLoader.Commands
         [CommandOption("runner-path", 'r', Description = "Manually sets the runner path. If not set but --game is set, reads from the config. If not specified in the config, assumes CWD.")]
         public string? RunnerPath { get; set; }
 
-        [CommandOption("no-args", Description = "Indicates this program was launched with no arguments. Do not set manually.")]
-        public bool NoArgs { get; set; }
-
         protected override async ValueTask ExecuteAsync() {
-            if (NoArgs && !Debugger.IsAttached) {
-                // TODO: This message sucks.
-                AnsiConsole.MarkupLine("[red]The program was launched with no arguments. Consider launching this from the command line while supplying arguments appropriately.[/]");
-            }
-            
             // Get config.
             LaunchConfig cfg = LaunchConfig.Instance;
-            
+
             // Populate Game if applicable.
             Game ??= NoDefaultProfile ? null : cfg.DefaultProfile;
-            
+
             // Get launch profile if present.
             LaunchProfile? profile = cfg.Profiles.ContainsKey(Game ?? "") ? cfg.Profiles[Game ?? ""] : null;
-            
+
             // Get config-adjusted paths.
-            GamePath = Utilities.FirstNotNull(GamePath, profile?.GamePath);
-            BackupPath = Utilities.FirstNotNull(BackupPath, profile?.BackupPath);
-            RunnerPath = Utilities.FirstNotNull(RunnerPath, profile?.RunnerPath);
-            
+            GamePath = Utilities.GetUsableString(GamePath, profile?.GamePath);
+            BackupPath = Utilities.GetUsableString(BackupPath, profile?.BackupPath);
+            RunnerPath = Utilities.GetUsableString(RunnerPath, profile?.RunnerPath);
+
             // Use these paths in the runner.
             IRunner runner = GetPlatformDependantRunner(GamePath, BackupPath, RunnerPath);
-            
+
             VerifyDataExists(runner);
             RestoreBackupData(runner);
             BackupGameData(runner);
 
-            AnsiConsole.MarkupLine("[gray]Loading game data... [silver](this may take a while)[/][/]");
+            Program.Logger.MarkupMessage(
+                "Loading game data... [white](this may take a while)[/]",
+                "Loading game data... (this may take a while)",
+                LogLevels.Debug
+            );
             UndertaleData data = LoadGameData(runner);
-            // TODO: Throw when --game doesn't match? Rather meh. Maybe a config option, heh.
-            AnsiConsole.MarkupLine("[gray]Loaded game data! Got game: [silver]" + data.GeneralInfo.Name + "[/][/]");
+            Program.Logger.LogMessage("Successfully loaded game data.", LogLevels.Debug);
 
             Loader loader = new(data.GeneralInfo.Name.Content);
             loader.PatchGame(data);
@@ -71,7 +66,7 @@ namespace HoloCure.ModLoader.Commands
             WriteGameData(data, runner);
             await ExecuteGame(runner);
         }
-        
+
         // TODO: Config option to override the runner used? IDK.
         private static IRunner GetPlatformDependantRunner(string? gamePath = null, string? backupPath = null, string? runnerPath = null) {
             if (OperatingSystem.IsWindows()) return new WindowsRunner(gamePath, backupPath, runnerPath);
@@ -92,7 +87,7 @@ namespace HoloCure.ModLoader.Commands
         }
 
         private void RestoreBackupData(IRunner runner) {
-            AnsiConsole.MarkupLine("[gray]Restoring backup data...[/]");
+            Program.Logger.LogMessage("Restoring backup data...", LogLevels.Debug);
             RunnerReturnCtx<RestoreBackupDataResult> ctx = runner.RestoreBackupData();
 
             switch (ctx.Value) {
@@ -106,11 +101,11 @@ namespace HoloCure.ModLoader.Commands
                     throw new UnauthorizedAccessException("Cannot overwrite game data at: " + ctx.FileName);
 
                 case RestoreBackupDataResult.Skipped:
-                    AnsiConsole.MarkupLine("[gray]Backup file not found, assuming first launch and skipping restoration.[/]");
+                    Program.Logger.LogMessage("Backup file not found, assuming first launch and skipping restoration...", LogLevels.Debug);
                     break;
 
                 case RestoreBackupDataResult.Success:
-                    AnsiConsole.MarkupLine("[gray]Restored game data to saved backup.[/]");
+                    Program.Logger.LogMessage("Restored game data to saved a backup file.", LogLevels.Debug);
                     break;
 
                 default:
@@ -120,7 +115,7 @@ namespace HoloCure.ModLoader.Commands
 
         // TODO: Necessary every time? Maybe so to ensure users updating their HoloCure game don't have outdated backups (reading comprehension issue).
         private void BackupGameData(IRunner runner) {
-            AnsiConsole.MarkupLine("[gray]Backing up game data...[/]");
+            Program.Logger.LogMessage("Backing up game data...", LogLevels.Debug);
             RunnerReturnCtx<BackupDataResult> ctx = runner.BackupData();
 
             switch (ctx.Value) {
@@ -131,11 +126,11 @@ namespace HoloCure.ModLoader.Commands
                     throw new UnauthorizedAccessException($"Could not backup game data, permission denied to write to file \"{ctx.BackupName}\".");
 
                 case BackupDataResult.Skipped:
-                    AnsiConsole.MarkupLine($"[gray]Skipped backing up to \"{ctx.BackupName}\".[/]");
+                    Program.Logger.LogMessage($"Skipped backing up to \"{ctx.BackupName}\".", LogLevels.Debug);
                     break;
 
                 case BackupDataResult.Success:
-                    AnsiConsole.MarkupLine($"[gray]Game data backed up to \"{ctx.BackupName}\".[/]");
+                    Program.Logger.LogMessage($"Game data backed up to \"{ctx.BackupName}\".", LogLevels.Debug);
                     break;
 
                 default:
@@ -168,7 +163,7 @@ namespace HoloCure.ModLoader.Commands
         }
 
         private void WriteGameData(UndertaleData data, IRunner runner) {
-            AnsiConsole.MarkupLine("[gray]Writing game data to file for execution.[/]");
+            Program.Logger.LogMessage("Writing game data to file for execution...", LogLevels.Debug);
             RunnerReturnCtx<WriteGameDataResult> ctx = runner.WriteGameData(data);
 
             switch (ctx.Value) {
@@ -182,11 +177,11 @@ namespace HoloCure.ModLoader.Commands
                     throw new ArgumentOutOfRangeException();
             }
 
-            AnsiConsole.MarkupLine($"[gray]Game data written to \"{ctx.FileName}\".[/]");
+            Program.Logger.LogMessage($"Game data written to \"{ctx.FileName}\".", LogLevels.Debug);
         }
 
         private async Task ExecuteGame(IRunner runner) {
-            AnsiConsole.MarkupLine("[gray]Executing game...[/]\n\n");
+            Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
             RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = runner.ExecuteGame();
 
             switch (ctx.Value.result) {

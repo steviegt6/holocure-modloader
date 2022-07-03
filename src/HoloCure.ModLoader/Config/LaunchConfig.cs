@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -18,8 +19,13 @@ namespace HoloCure.ModLoader.Config
             }
         }
 
+        [JsonProperty("check_for_updates")]
+        [DefaultValue(true)]
+        public bool CheckForUpdates { get; set; }
+
         [JsonProperty("default_profile")]
-        public string? DefaultProfile { get; set; }
+        [DefaultValue("")]
+        public string DefaultProfile { get; set; } = "";
 
         [JsonProperty("profiles")]
         public Dictionary<string, LaunchProfile> Profiles { get; set; } = new();

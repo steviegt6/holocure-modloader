@@ -25,6 +25,7 @@ namespace HoloCure.ModLoader
         }
 
         public async Task Strangle(int millisecondDelay) {
+        // We want these to run in parallel.
 #pragma warning disable CS4014
             Task.Run(() => { Delay(millisecondDelay);});
             Task.Run(() => { WaitForInput();});
