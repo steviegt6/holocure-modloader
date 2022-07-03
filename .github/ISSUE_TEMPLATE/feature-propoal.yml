@@ -34,13 +34,13 @@ body:
     label: Applicable Projects
     description: What projects are related to this issue? (If you are not sure, just select `HoloCure.ModLoader`.)
     options:
-      - label: `HoloCure.API`
-      - label: `HoloCure.ModLoader.API`
-      - label: `HoloCure.ModLoader.Logging`
-      - label: `HoloCure.ModLoader.Updater`
-      - label: `HoloCure.ModLoader`
-      - label: `CodeChicken.DiffPatch`
-      - label: `UndertaleModLib`
+      - label: HoloCure.API
+      - label: HoloCure.ModLoader.API
+      - label: HoloCure.ModLoader.Logging
+      - label: HoloCure.ModLoader.Updater
+      - label: HoloCure.ModLoader
+      - label: CodeChicken.DiffPatch
+      - label: UndertaleModLib
   validations:
     required: true
 
