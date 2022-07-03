@@ -1,7 +1,3 @@
-*This project has, thus far, been developed on zero hours of sleep. Expect inevitable incoherency.*
-
----
-
 # HoloCure.ModLoader
 
 HoloCure Mod Loader and Modding API
