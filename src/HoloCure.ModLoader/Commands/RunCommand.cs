@@ -15,12 +15,9 @@ namespace HoloCure.ModLoader.Commands
     [Command("run", Description = "Runs a game using the mod loader.")]
     public class RunCommand : BaseCommand
     {
-        [CommandOption("game", 'g', Description = "The game being ran. This is used for reading configs. If not set, config-set paths will not be used.")]
+        [CommandOption("game", 'g', Description = "Overrides the default launch profile.")]
         public string? Game { get; set; }
-
-        [CommandOption("no-default-profile", 'n', Description = "Disables automatically setting --game if it's null.")]
-        public bool NoDefaultProfile { get; set; } = false;
-
+        
         [CommandOption("game-path", 'p', Description = "Manually sets the game path. If not set but --game is set, reads from the config. If not specified in the config, assumes CWD.")]
         public string? GamePath { get; set; }
 
@@ -35,15 +32,36 @@ namespace HoloCure.ModLoader.Commands
             LaunchConfig cfg = LaunchConfig.Instance;
 
             // Populate Game if applicable.
-            Game ??= NoDefaultProfile ? null : cfg.DefaultProfile;
+            Game ??= cfg.DefaultProfile;
 
             // Get launch profile if present.
-            LaunchProfile? profile = cfg.Profiles.ContainsKey(Game ?? "") ? cfg.Profiles[Game ?? ""] : null;
+            LaunchProfile? profile = cfg.Profiles.ContainsKey(Game) ? cfg.Profiles[Game] : null;
+
+            if (profile is null) {
+                throw new NullReferenceException("No profile specified with --game and the default profile is not set. Please specify the profile to launch.");
+            }
 
             // Get config-adjusted paths.
-            GamePath = Utilities.GetUsableString(GamePath, profile?.GamePath);
-            BackupPath = Utilities.GetUsableString(BackupPath, profile?.BackupPath);
-            RunnerPath = Utilities.GetUsableString(RunnerPath, profile?.RunnerPath);
+            GamePath = Utilities.GetUsableString(GamePath, profile.GamePath);
+            BackupPath = Utilities.GetUsableString(BackupPath, profile.BackupPath);
+            RunnerPath = Utilities.GetUsableString(RunnerPath, profile.RunnerPath);
+
+            if (GamePath is null) {
+                throw new NullReferenceException("No valid game path specified, either specify one with --game-path or correctly set the profile game path.");
+            }
+            
+            if (BackupPath is null) {
+                throw new NullReferenceException("No valid backup path specified, either specify one with --backup-path or correctly set the profile backup path.");
+            }
+            
+            if (RunnerPath is null) {
+                throw new NullReferenceException("No valid runner path specified, either specify one with --runner-path or correctly set the profile runner path.");
+            }
+            
+            Program.Logger.MarkupMessage($"Running on profile: [white]{Game}[/]", "Running on profile: " + Game, LogLevels.Debug);
+            Program.Logger.MarkupMessage($"Using game path: [white]{GamePath}[/]", "Using game path: " + GamePath, LogLevels.Debug);
+            Program.Logger.MarkupMessage($"Using backup path: [white]{BackupPath}[/]", "Using backup path: " + BackupPath, LogLevels.Debug);
+            Program.Logger.MarkupMessage($"Using runner path: [white]{RunnerPath}[/]", "Using runner path: " + RunnerPath, LogLevels.Debug);
 
             // Use these paths in the runner.
             IRunner runner = GetPlatformDependantRunner(GamePath, BackupPath, RunnerPath);
