@@ -50,18 +50,18 @@ namespace HoloCure.ModLoader
 
         private static void LogHeader(string[] args, string version) {
             if (!args.Contains("-v") && !args.Contains("--version") && !args.Contains("-h") && !args.Contains("--help")) {
-                Logger.LogMessage($"HoloCure.ModLoader v{version}", LogLevels.Debug);
+                Logger.LogMessage($"HoloCure.ModLoader v{version}", LogLevels.Info);
             }
 
             Logger.MarkupMessage(
                 "Report issues @ [blue underline]https://github.com/steviegt6/holocure-modloader[/]",
                 "Report issues @ https://github.com/steviegt6/holocure-modloader",
-                LogLevels.Debug
+                LogLevels.Info
             );
             Logger.MarkupMessage(
                 "Get support and talk @ [blue underline]https://discord.gg/Y8bvvqyFQw[/]\n",
                 "Get support and talk @ https://discord.gg/Y8bvvqyFQw\n",
-                LogLevels.Debug
+                LogLevels.Info
             );
         }
 
