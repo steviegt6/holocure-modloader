@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.Logging"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.API.Tests", "HoloCure.ModLoader.API.Tests\HoloCure.ModLoader.API.Tests.csproj", "{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-CA04-43F3-BA54-27BC6B5C6128}"
+	ProjectSection(SolutionItems) = preProject
+		shared.targets = shared.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,0 +1,14 @@
+<Project ToolsVersion="14.0">
+    <!-- Project Versions -->
+    <PropertyGroup>
+        <HoloCureAPIVersion>0.1.0</HoloCureAPIVersion>
+        <HoloCureModLoaderVersion>0.1.0</HoloCureModLoaderVersion>
+        <HoloCureModLoaderAPIVersion>0.1.0</HoloCureModLoaderAPIVersion>
+        <HoloCureModLoaderLoggingVersion>0.1.0</HoloCureModLoaderLoggingVersion>
+        <HoloCureModLoaderUpdaterVersion>0.1.0</HoloCureModLoaderUpdaterVersion>
+        
+        <!-- These are submodules and need to be watched closely when updating. -->
+        <CodeChickenDiffpatchVersion>1.0.0</CodeChickenDiffpatchVersion>
+        <UndertaleModLibVersion>1.0.0</UndertaleModLibVersion>
+    </PropertyGroup>
+</Project>

@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+    <Import Project="..\shared.targets" />
+    
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <AssemblyVersion>$(HoloCureModLoaderLoggingVersion)</AssemblyVersion>
+        <FileVersion>$(HoloCureModLoaderLoggingVersiom)</FileVersion>
+        <PackageVersion>$(HoloCureModLoaderLoggingVersion)</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

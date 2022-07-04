@@ -9,10 +9,11 @@ namespace HoloCure.ModLoader.API.Sorting
     // https://github.com/tModLoader/tModLoader/blob/dd44e70738e29e5ded0cb979355b671b41f56efe/patches/tModLoader/Terraria/ModLoader/TopoSort.cs
     // MIT license. TODO: License headers.
     public class TopologicalSortStrategy<TItem> : ISortStrategy<TItem>
+        where TItem : notnull
     {
         protected readonly ReadOnlyCollection<TItem> List;
-        protected Dictionary<TItem, List<TItem>> Dependencies = new();
-        protected Dictionary<TItem, List<TItem>> Dependents = new();
+        protected readonly Dictionary<TItem, List<TItem>> Dependencies = new();
+        protected readonly Dictionary<TItem, List<TItem>> Dependents = new();
 
         public TopologicalSortStrategy(
             IEnumerable<TItem> elements,
