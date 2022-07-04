@@ -3,6 +3,10 @@
 HoloCure Mod Loader and Modding API
 
 ---
+
+
+I love modding, you love modding, everyone loves modding; what's not to love? HoloCure.ModLoader is a [free and open-source](https://en.wikipedia.org/wiki/Free_and_open-source_software) mod loader and modding API for [HoloCure](https://kay-yu.itch.io/holocure). You should check it out if you haven't already.
+
 ## ATTENTION
 
 Until a stable release (1.0.0) is reached, I will not be guaranteeing [SemVer](https://semver.org/)-compatible versioning. Things will be prone to breaking as updates occur.
@@ -10,8 +14,6 @@ Until a stable release (1.0.0) is reached, I will not be guaranteeing [SemVer](h
 Furthermore, the current state of this project's code is, put simply, primitive. Primitive and ugly. Primivite, ugly, and non-permanent. It will be changing as time stretches on. There is no guarantee that your mod for your game will remain stable.
 
 Additionally, the HoloCure API (`HoloCure.API`) will *never* be fully SemVer compliant due to the fickle nature of the game's codebase. This is an unavoidable fact. I will try to keep the API externally consistent, however.
-
-I love modding, you love modding, everyone loves modding; what's not to love? HoloCure.ModLoader is a [free and open-source](https://en.wikipedia.org/wiki/Free_and_open-source_software) mod loader and modding API for [HoloCure](https://kay-yu.itch.io/holocure). You should check it out if you haven't already.
 
 ## Licensing
 
