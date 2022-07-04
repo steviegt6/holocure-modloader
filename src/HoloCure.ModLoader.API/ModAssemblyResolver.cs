@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using HoloCure.ModLoader.API.Exceptions;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.DependencyModel.Resolution;
 using UndertaleModLib;
@@ -19,6 +20,7 @@ namespace HoloCure.ModLoader.API
         // Adapted under The Code Project Open License (CPOL) 1.02: https://www.codeproject.com/info/cpol10.aspx
         public class Resolver
         {
+            public readonly ModMetadata Metadata;
             public readonly Assembly Assembly;
 
             private readonly List<Resolver> Dependencies = new();
@@ -26,13 +28,17 @@ namespace HoloCure.ModLoader.API
             private readonly CompositeCompilationAssemblyResolver AssemblyResolver;
             private readonly AssemblyLoadContext? AssemblyLoadContext;
 
-            public Resolver(string assembly) {
-                Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assembly);
+            public Resolver(ModMetadata metadata) {
+                Metadata = metadata;
+
+                string asmPath = Path.Combine(Metadata.ParentDirectory, Metadata.DllName);
+                
+                Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(asmPath);
 
                 DependencyContext = DependencyContext.Load(Assembly);
                 AssemblyResolver = new CompositeCompilationAssemblyResolver(new ICompilationAssemblyResolver[]
                 {
-                    new AppBaseCompilationAssemblyResolver(Path.GetDirectoryName(assembly)),
+                    new AppBaseCompilationAssemblyResolver(Path.GetDirectoryName(asmPath)),
                     new ReferenceAssemblyPathResolver(),
                     new PackageCompilationAssemblyResolver()
                 });
@@ -85,6 +91,67 @@ namespace HoloCure.ModLoader.API
                 AssemblyResolver.TryResolveAssemblyPaths(wrapper, assemblies);
 
                 return assemblies.Count != 0 ? AssemblyLoadContext?.LoadFromAssemblyPath(assemblies[0]) : null;
+            }
+        }
+
+        protected readonly Dictionary<string, Resolver> Resolvers = new();
+
+        public void AddAssembly(ModMetadata metadata) {
+            if (Resolvers.ContainsKey(metadata.UniqueName)) {
+                throw new ModLoadException("Found duplicate unique name: " + metadata.UniqueName);
+            }
+            
+            Resolvers[metadata.UniqueName] = new Resolver(metadata);
+        }
+
+        public void PopulateResolverDependencies() {
+            foreach (Resolver resolver in Resolvers.Values) {
+                foreach (string dependency in resolver.Metadata.Dependencies) {
+                    resolver.AddDependency(Resolvers[dependency]);
+                }
+            }
+        }
+
+        public List<IMod> InstantiateMods() {
+            List<IMod> mods = new();
+            
+            foreach (Resolver resolver in Resolvers.Values) {
+                Type? modType = resolver.Assembly.GetType(resolver.Metadata.ModClass);
+
+                if (modType is null) {
+                    throw new ModLoadException("Failed to load mod class: " + resolver.Metadata.ModClass);
+                }
+
+                try {
+                    object? instantiated = Activator.CreateInstance(modType);
+
+                    if (instantiated is null) {
+                        throw new ModLoadException("Created null mod instance: " + resolver.Metadata.ModClass);
+                    }
+
+                    if (instantiated is not IMod mod) {
+                        throw new ModLoadException("Created mod does not implement IMod: " + resolver.Metadata.ModClass);
+                    }
+                    
+                    mods.Add(mod);
+                }
+                catch (Exception e) {
+                    throw new ModLoadException($"An exception occured loading class for {resolver.Metadata.UniqueName}: {resolver.Metadata.ModClass}", e);
+                }
+            }
+
+            return mods;
+        }
+
+        public void SubscribeAll() {
+            foreach (Resolver resolver in Resolvers.Values) {
+                resolver.Subscribe();
+            }
+        }
+        
+        public void UnsubscribeAll() {
+            foreach (Resolver resolver in Resolvers.Values) {
+                resolver.Unsubscribe();
             }
         }
     }

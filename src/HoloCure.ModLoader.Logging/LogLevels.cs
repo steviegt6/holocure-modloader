@@ -1,4 +1,6 @@
-﻿using Spectre.Console;
+﻿using System;
+using System.Collections.Generic;
+using Spectre.Console;
 
 namespace HoloCure.ModLoader.Logging
 {

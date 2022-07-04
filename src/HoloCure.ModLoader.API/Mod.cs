@@ -6,13 +6,13 @@ namespace HoloCure.ModLoader.API
     public class Mod : IMod
     {
         /// <inheritdoc cref="IMod.Assembly"/>
-        public Assembly? Assembly { get; set; }
+        public Assembly Assembly { get; set; } = null!;
         
         /// <inheritdoc cref="IMod.AssemblyResolver"/>
-        public ModAssemblyResolver.Resolver? AssemblyResolver { get; set; }
+        public ModAssemblyResolver.Resolver AssemblyResolver { get; set; } = null!;
 
         /// <inheritdoc cref="IMod.Metadata"/>
-        public ModMetadata? Metadata { get; set; }
+        public ModMetadata Metadata { get; set; } = null!;
 
         /// <inheritdoc cref="IMod.Load"/>
         public virtual void Load() {
@@ -28,11 +28,6 @@ namespace HoloCure.ModLoader.API
 
         /// <inheritdoc cref="IMod.GameStarted"/>
         public virtual void GameStarted() {
-        }
-
-        // For tests. Kinda guh...
-        public override string ToString() {
-            return Metadata!.UniqueName;
         }
     }
 }

@@ -2,10 +2,6 @@
     <Import Project="..\shared.targets" />
     
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        
         <AssemblyVersion>$(HoloCureModLoaderUpdaterVersion)</AssemblyVersion>
         <FileVersion>$(HoloCureModLoaderUpdaterVersion)</FileVersion>
         <PackageVersion>$(HoloCureModLoaderUpdaterVersion)</PackageVersion>

@@ -1,4 +1,6 @@
-﻿namespace HoloCure.ModLoader.Logging.Writers
+﻿using System;
+
+namespace HoloCure.ModLoader.Logging.Writers
 {
     public interface ILogWriter : IWriter, IDisposable
     {

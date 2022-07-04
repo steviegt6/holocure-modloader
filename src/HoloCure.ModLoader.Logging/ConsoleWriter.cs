@@ -1,4 +1,5 @@
-﻿using HoloCure.ModLoader.Logging.Writers;
+﻿using System;
+using HoloCure.ModLoader.Logging.Writers;
 using Spectre.Console;
 
 namespace HoloCure.ModLoader.Logging

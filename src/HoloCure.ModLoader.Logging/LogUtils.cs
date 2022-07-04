@@ -1,4 +1,6 @@
-﻿namespace HoloCure.ModLoader.Logging
+﻿using System;
+
+namespace HoloCure.ModLoader.Logging
 {
     public static class LogUtils
     {

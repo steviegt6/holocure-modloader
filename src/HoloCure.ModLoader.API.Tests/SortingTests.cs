@@ -10,23 +10,20 @@ namespace HoloCure.ModLoader.API.Tests
     // MIT License. TODO: License header.
     public static class SortingTests
     {
-	    private static IMod Make(
+	    private static ModMetadata Make(
 		    string name,
 		    string? version = null,
 		    IEnumerable<string>? refs = null,
 		    IEnumerable<string>? sortAfter = null,
 		    IEnumerable<string>? sortBefore = null
 	    ) {
-		    return new Mod
+		    return new ModMetadata
 		    {
-			    Metadata = new ModMetadata
-			    {
-				    UniqueName = name,
-				    Version = version ?? "1.0.0.0",
-				    Dependencies = refs?.ToList() ?? new List<string>(),
-				    SortAfter = sortAfter?.ToList() ?? new List<string>(),
-				    SortBefore = sortBefore?.ToList() ?? new List<string>()
-			    }
+			    UniqueName = name,
+			    Version = version ?? "1.0.0.0",
+			    Dependencies = refs?.ToList() ?? new List<string>(),
+			    SortAfter = sortAfter?.ToList() ?? new List<string>(),
+			    SortBefore = sortBefore?.ToList() ?? new List<string>()
 		    };
 	    }
 
@@ -43,7 +40,7 @@ namespace HoloCure.ModLoader.API.Tests
 				Assert.Fail("Test method did not throw expected exception ModOrganizationException.");
 			}
 			catch (ModOrganizationException e) {
-				AssertSetsEqual(e.Errored.Select(m => m.Metadata!.UniqueName).ToList(), mods);
+				AssertSetsEqual(e.Errored.Select(m => m.UniqueName).ToList(), mods);
 				Assert.That(msg, Is.EqualTo(e.Message.Trim()));
 			}
 		}
@@ -76,18 +73,18 @@ namespace HoloCure.ModLoader.API.Tests
 			}
 		}
 
-		private static List<IMod> AssertSortSatisfied(List<IMod> list) {
-			var sorted = ModOrganizer.Sort(list);
-			var indexMap = sorted.ToDictionary(m => m.Metadata!.UniqueName, sorted.IndexOf);
-			foreach (IMod mod in list) {
-				int index = indexMap[mod.Metadata!.UniqueName];
-				foreach (string dep in mod.Metadata.SortAfter) {
+		private static List<ModMetadata> AssertSortSatisfied(List<ModMetadata> list) {
+			List<ModMetadata> sorted = ModOrganizer.Sort(list);
+			Dictionary<string, int> indexMap = sorted.ToDictionary(m => m.UniqueName, sorted.IndexOf);
+			foreach (ModMetadata mod in list) {
+				int index = indexMap[mod.UniqueName];
+				foreach (string dep in mod.SortAfter) {
 					if (indexMap.TryGetValue(dep, out int i) && i > index)
-						Assert.Fail(mod.Metadata.UniqueName + " sorted after " + dep);
+						Assert.Fail(mod.UniqueName + " sorted after " + dep);
 				}
-				foreach (string dep in mod.Metadata.SortBefore) {
+				foreach (string dep in mod.SortBefore) {
 					if (indexMap.TryGetValue(dep, out int i) && i < index)
-						Assert.Fail(mod.Metadata.UniqueName + " sorted before " + dep);
+						Assert.Fail(mod.UniqueName + " sorted before " + dep);
 				}
 			}
 
@@ -108,14 +105,16 @@ namespace HoloCure.ModLoader.API.Tests
 		[Test]
 		public static void TestDependenciesExist() {
 			//test A -> B
-			var list1 = new List<IMod> {
+			List<ModMetadata> list1 = new()
+			{
 				Make("A", refs: new[] {"B"}),
 				Make("B"),
 			};
 			ModOrganizer.EnsureDependenciesExist(list1);
 
 			//test A -> B (missing)
-			var list2 = new List<IMod> {
+			List<ModMetadata> list2 = new()
+			{
 				Make("A", refs: new[] {"B"})
 			};
 			AssertModException(
@@ -124,7 +123,8 @@ namespace HoloCure.ModLoader.API.Tests
 				"Missing mod: B required by A");
 
 			//test multi reference
-			var list3 = new List<IMod> {
+			List<ModMetadata> list3 = new()
+			{
 				Make("A", refs: new[] {"B"}),
 				Make("B"),
 				Make("C", refs: new[] {"A"})
@@ -132,7 +132,8 @@ namespace HoloCure.ModLoader.API.Tests
 			ModOrganizer.EnsureDependenciesExist(list3);
 
 			//test one missing reference
-			var list4 = new List<IMod> {
+			List<ModMetadata> list4 = new()
+			{
 				Make("A", refs: new[] {"B"}),
 				Make("B", refs: new[] {"C"})
 			};
@@ -142,7 +143,7 @@ namespace HoloCure.ModLoader.API.Tests
 				"Missing mod: C required by B");
 
 			/*//test weak reference (missing)
-			var list5 = new List<IMod> {
+			var list5 = new List<ModMetadata> {
 				Make("A", weakRefs: new[] {"B"})
 			};
 			ModOrganizer.EnsureDependenciesExist(list5, false);
@@ -208,20 +209,23 @@ namespace HoloCure.ModLoader.API.Tests
 		[Test]
 		public static void TestVersionRequirements() {
 			//test version on missing mod
-			var list1 = new List<IMod> {
+			List<ModMetadata> list1 = new()
+			{
 				Make("A", refs: new[] {"B@1.2"})
 			};
 			ModOrganizer.EnsureTargetVersionsMet(list1);
 
 			//test passed version check
-			var list2 = new List<IMod> {
+			List<ModMetadata> list2 = new()
+			{
 				Make("A", refs: new[] {"B@1.2"}),
 				Make("B", version: "1.2")
 			};
 			ModOrganizer.EnsureTargetVersionsMet(list2);
 
 			//test failed version check
-			var list3 = new List<IMod> {
+			List<ModMetadata> list3 = new()
+			{
 				Make("A", refs: new[] {"B@1.2"}),
 				Make("B")
 			};
@@ -231,7 +235,8 @@ namespace HoloCure.ModLoader.API.Tests
 				"A requires version 1.2+ of B but version 1.0.0.0 is installed");
 
 			//test one pass, two fail version check
-			var list4 = new List<IMod> {
+			List<ModMetadata> list4 = new()
+			{
 				Make("A"),
 				Make("B", refs: new[] {"A@0.9"}),
 				Make("C", refs: new[] {"A@1.1"}),
@@ -264,7 +269,8 @@ namespace HoloCure.ModLoader.API.Tests
 		[Test]
 		public static void TestSortOrder() {
 			//general complex one way edge sort
-			var list = new List<IMod> {
+			List<ModMetadata> list = new()
+			{
 				Make("A"),
 				Make("B", sortAfter: new [] {"A"}),
 				Make("C", sortAfter: new [] {"A"}, sortBefore: new[] {"B"}),
@@ -277,14 +283,16 @@ namespace HoloCure.ModLoader.API.Tests
 			AssertSortSatisfied(list);
 
 			//mutually satisfiable cycle
-			var list2 = new List<IMod> {
+			List<ModMetadata> list2 = new()
+			{
 				Make("A", sortBefore: new [] {"B"}),
 				Make("B", sortAfter: new [] {"A"})
 			};
 			AssertSortSatisfied(list2);
 
 			//direct cycle
-			var list3 = new List<IMod> {
+			List<ModMetadata> list3 = new()
+			{
 				Make("A", sortAfter: new [] {"B"}),
 				Make("B", sortAfter: new [] {"A"})
 			};
@@ -294,7 +302,8 @@ namespace HoloCure.ModLoader.API.Tests
 				"Dependency Cycle: A -> B -> A");
 
 			//complex unsatisfiable sort
-			var list4 = new List<IMod> {
+			List<ModMetadata> list4 = new()
+			{
 				Make("A"),
 				Make("B", sortAfter: new [] {"A"}),
 				Make("C", sortBefore: new [] {"A", "D"}),
@@ -371,8 +380,8 @@ namespace HoloCure.ModLoader.API.Tests
 				Make("D", sortAfter: new[] {"C", "B"}, side: ModSide.Client),
 				Make("E", sortAfter: new[] {"D", "A"})
 			};
-			List<IMod> s1 = AssertSortSatisfied(list1).Where(m => m.properties.side == ModSide.Both).ToList();
-			List<IMod> s2 = AssertSortSatisfied(list1.Where(m => m.properties.side == ModSide.Both).ToList());
+			List<ModMetadata> s1 = AssertSortSatisfied(list1).Where(m => m.properties.side == ModSide.Both).ToList();
+			List<ModMetadata> s2 = AssertSortSatisfied(list1.Where(m => m.properties.side == ModSide.Both).ToList());
 			Assert.IsTrue(Enumerable.SequenceEqual(s1, s2));
 
 			//reverse the order

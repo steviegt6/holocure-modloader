@@ -11,17 +11,17 @@ namespace HoloCure.ModLoader.API
         /// <summary>
         ///     This mod's assembly.
         /// </summary>
-        Assembly? Assembly { get; set; }
+        Assembly Assembly { get; set; }
 
         /// <summary>
         ///     This mod's assembly resolver.
         /// </summary>
-        ModAssemblyResolver.Resolver? AssemblyResolver { get; set; }
+        ModAssemblyResolver.Resolver AssemblyResolver { get; set; }
 
         /// <summary>
         ///     This mod's metadata file.
         /// </summary>
-        ModMetadata? Metadata { get; set; }
+        ModMetadata Metadata { get; set; }
 
         /// <summary>
         ///     Called once this mod has been loaded.

@@ -3,9 +3,6 @@
     
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <LanguageVersion>latest</LanguageVersion>
-        <Nullable>enable</Nullable>
         
         <AssemblyVersion>$(HoloCureModLoaderVersion)</AssemblyVersion>
         <FileVersion>$(HoloCureModLoaderVersion)</FileVersion>

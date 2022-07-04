@@ -14,37 +14,37 @@ namespace HoloCure.ModLoader.API
     /// </summary>
     public static class ModOrganizer
     {
-        private static ISortStrategy<IMod> TopoSort(ICollection<IMod> mods) {
-            Dictionary<string, IMod> nameMap = mods.ToDictionary(x => x.Metadata!.UniqueName);
-            return new TopologicalSortStrategy<IMod>(
+        private static ISortStrategy<ModMetadata> TopoSort(ICollection<ModMetadata> mods) {
+            Dictionary<string, ModMetadata> nameMap = mods.ToDictionary(x => x.UniqueName);
+            return new TopologicalSortStrategy<ModMetadata>(
                 mods,
-                x => x.Metadata!.SortAfter.Where(nameMap.ContainsKey).Select(y => nameMap[y]),
-                x => x.Metadata!.SortBefore.Where(nameMap.ContainsKey).Select(y => nameMap[y])
+                x => x.SortAfter.Where(nameMap.ContainsKey).Select(y => nameMap[y]),
+                x => x.SortBefore.Where(nameMap.ContainsKey).Select(y => nameMap[y])
             );
         }
 
-        public static List<IMod> Sort(IEnumerable<IMod> mods) {
-            List<IMod> preSorted = mods.OrderBy(x => x.Metadata!.UniqueName).ToList();
-            ISortStrategy<IMod> fullSort = TopoSort(preSorted);
+        public static List<ModMetadata> Sort(IEnumerable<ModMetadata> mods) {
+            List<ModMetadata> preSorted = mods.OrderBy(x => x.UniqueName).ToList();
+            ISortStrategy<ModMetadata> fullSort = TopoSort(preSorted);
 
             try {
                 return fullSort.Sort();
             }
-            catch (CyclicDependencyException<IMod> e) {
+            catch (CyclicDependencyException<ModMetadata> e) {
                 throw new ModOrganizationException(e.Set, e.Message);
             }
         }
 
-        public static void EnsureDependenciesExist(ICollection<IMod> mods) {
-            Dictionary<string, IMod> nameMap = mods.ToDictionary(x => x.Metadata!.UniqueName);
-            HashSet<IMod> errored = new();
+        public static void EnsureDependenciesExist(ICollection<ModMetadata> mods) {
+            Dictionary<string, ModMetadata> nameMap = mods.ToDictionary(x => x.UniqueName);
+            HashSet<ModMetadata> errored = new();
             StringBuilder errorLog = new();
 
-            foreach (IMod mod in mods) {
-                foreach (string dep in mod.Metadata!.Dependencies) {
+            foreach (ModMetadata mod in mods) {
+                foreach (string dep in mod.Dependencies) {
                     if (!nameMap.ContainsKey(dep)) {
                         errored.Add(mod);
-                        errorLog.AppendLine($"Missing mod: {dep} required by {mod.Metadata!.UniqueName}");
+                        errorLog.AppendLine($"Missing mod: {dep} required by {mod.UniqueName}");
                     }
                 }
             }
@@ -53,21 +53,21 @@ namespace HoloCure.ModLoader.API
                 throw new ModOrganizationException(errored, errorLog.ToString());
         }
 
-        public static void EnsureTargetVersionsMet(ICollection<IMod> mods) {
-            Dictionary<string, IMod> nameMap = mods.ToDictionary(x => x.Metadata!.UniqueName);
-            HashSet<IMod> errored = new();
+        public static void EnsureTargetVersionsMet(ICollection<ModMetadata> mods) {
+            Dictionary<string, ModMetadata> nameMap = mods.ToDictionary(x => x.UniqueName);
+            HashSet<ModMetadata> errored = new();
             StringBuilder errorLog = new();
 
-            foreach (IMod mod in mods) {
-                foreach ((string dep, Version depVersion) in mod.Metadata!.CollectDependencies()) {
-                    if (!nameMap.TryGetValue(dep, out IMod? inst)) {
+            foreach (ModMetadata mod in mods) {
+                foreach ((string dep, Version depVersion) in mod.CollectDependencies()) {
+                    if (!nameMap.TryGetValue(dep, out ModMetadata? inst)) {
                         continue;
                     }
 
-                    if (inst.Metadata!.LiteralVersion() < depVersion) {
+                    if (inst.LiteralVersion() < depVersion) {
                         errored.Add(mod);
                         errorLog.AppendLine(
-                            $"{mod.Metadata!.UniqueName} requires version {depVersion}+ of {dep} but version {inst.Metadata!.LiteralVersion()} is installed"
+                            $"{mod.UniqueName} requires version {depVersion}+ of {dep} but version {inst.LiteralVersion()} is installed"
                         );
                     }
                 }

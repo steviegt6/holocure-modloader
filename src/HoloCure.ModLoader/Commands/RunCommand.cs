@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -94,11 +95,17 @@ namespace HoloCure.ModLoader.Commands
             UndertaleData data = LoadGameData(runner);
             Program.Logger.LogMessage("Successfully loaded game data.", LogLevels.Debug);
 
-            Loader loader = new(data.GeneralInfo.Name.Content);
+            // TODO: Add external probing paths.
+            Loader loader = new(data.GeneralInfo.Name.Content, new List<string>());
+            loader.ResolveMods();
+            loader.SortMods();
+            loader.InstantiateMods();
+            loader.LoadMods();
             loader.PatchGame(data);
 
             WriteGameData(data, runner);
-            await ExecuteGame(runner);
+            await ExecuteGame(runner, loader);
+            loader.UnloadMods();
             RestoreBackupData(runner);
         }
 
@@ -213,8 +220,9 @@ namespace HoloCure.ModLoader.Commands
             Program.Logger.LogMessage($"Game data written to \"{ctx.FileName}\".", LogLevels.Debug);
         }
 
-        private async Task ExecuteGame(IRunner runner) {
+        private async Task ExecuteGame(IRunner runner, Loader loader) {
             Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
+            loader.GameStarted();
             RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = runner.ExecuteGame();
 
             switch (ctx.Value.result) {

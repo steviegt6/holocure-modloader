@@ -5,9 +5,9 @@ namespace HoloCure.ModLoader.API.Exceptions
 {
     internal class ModOrganizationException : Exception
     {
-        public readonly ICollection<IMod> Errored;
+        public readonly ICollection<ModMetadata> Errored;
 
-        public ModOrganizationException(ICollection<IMod> errored, string? message = null) : base(message) {
+        public ModOrganizationException(ICollection<ModMetadata> errored, string? message = null) : base(message) {
             Errored = errored;
         }
     }

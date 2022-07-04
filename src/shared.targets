@@ -1,4 +1,11 @@
 <Project ToolsVersion="14.0">
+    <!-- Project Presets -->
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
     <!-- Project Versions -->
     <PropertyGroup>
         <HoloCureAPIVersion>0.1.0</HoloCureAPIVersion>

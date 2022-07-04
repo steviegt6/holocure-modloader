@@ -1,4 +1,6 @@
-﻿using HoloCure.ModLoader.Logging.Writers;
+﻿using System;
+using System.IO;
+using HoloCure.ModLoader.Logging.Writers;
 
 namespace HoloCure.ModLoader.Logging
 {

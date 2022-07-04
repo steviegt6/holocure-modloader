@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 
 namespace HoloCure.ModLoader.API
@@ -9,6 +8,12 @@ namespace HoloCure.ModLoader.API
     {
         [JsonProperty("unique_name")]
         public string UniqueName { get; set; } = "";
+
+        [JsonProperty("dll_name")]
+        public string DllName { get; set; } = "";
+
+        [JsonProperty("mod_class")]
+        public string ModClass { get; set; } = "";
 
         [JsonProperty("version")]
         public string Version { get; set; } = "";
@@ -21,6 +26,12 @@ namespace HoloCure.ModLoader.API
 
         [JsonProperty("sort_after")]
         public List<string> SortAfter { get; set; } = new();
+
+        [JsonIgnore]
+        public string ParentDirectory { get; set; } = null!;
+
+        [JsonIgnore]
+        public IMod? Mod { get; set; } = null;
 
         public IEnumerable<(string dep, Version depVersion)> CollectDependencies() {
             foreach (string dep in Dependencies) {
@@ -36,6 +47,10 @@ namespace HoloCure.ModLoader.API
 
         public Version LiteralVersion() {
             return System.Version.Parse(Version);
+        }
+
+        public override string ToString() {
+            return UniqueName;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace HoloCure.ModLoader.Updater
+﻿using System.Threading.Tasks;
+
+namespace HoloCure.ModLoader.Updater
 {
     /// <summary>
     ///     Implementable interface that dictates whether a program may update and how updating should be handled.
