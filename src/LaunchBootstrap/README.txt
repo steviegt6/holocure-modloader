@@ -1,1 +1,0 @@
-YYTK bootstrapping executables for launching without a .NET process (dreadful process).
