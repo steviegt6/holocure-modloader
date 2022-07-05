@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\shared.targets" />
+
+    <PropertyGroup>
+        <AssemblyVersion>$(HoloCureModLoaderYYTK)</AssemblyVersion>
+        <FileVersion>$(HoloCureModLoaderYYTK)</FileVersion>
+        <PackageVersion>$(HoloCureModLoaderYYTK)</PackageVersion>
+    </PropertyGroup>
+
+</Project>

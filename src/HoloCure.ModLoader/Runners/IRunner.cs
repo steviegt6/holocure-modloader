@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using HoloCure.ModLoader.YYTK;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -37,9 +38,9 @@ namespace HoloCure.ModLoader.Runners
         /// <summary>
         ///     Executes the game using the runner.
         /// </summary>
-        /// <param name="yytoolkitDllpath">Path to the YYToolkit native DLL.</param>
+        /// <param name="yytkLauncher">Platform-dependant YYTK launcher..</param>
         /// <returns>The status result and the associated game process. The process will be null if it failed to launch.</returns>
-        RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(string? yytoolkitDllpath);
+        RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(IYYTKLauncher yytkLauncher);
 
         RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData();
     }

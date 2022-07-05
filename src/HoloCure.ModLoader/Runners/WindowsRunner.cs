@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using HoloCure.ModLoader.Injector;
+using HoloCure.ModLoader.YYTK;
+using HoloCure.ModLoader.YYTK.Windows;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -96,7 +97,7 @@ namespace HoloCure.ModLoader.Runners
             }
         }
 
-        public RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(string? yytoolkitDllpath) {
+        public RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(IYYTKLauncher yytkLauncher) {
             RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> Ctx(ExecuteGameResult result, Process? proc) {
                 return MakeReturnCtx((result, proc));
             }
@@ -111,16 +112,14 @@ namespace HoloCure.ModLoader.Runners
                 return Ctx(ExecuteGameResult.RunnerMissing, null);
             }
 
-            // TODO: Wonder if we should specify -game (should do that later to support non-uniform file layouts).
-
-            string args = string.Join(' ', "-game", $"\"{GamePath}\"");
             Process? proc;
 
+            string? yytoolkitDllpath = yytkLauncher.GetYYTKDllPath(typeof(Program));
             if (yytoolkitDllpath is not null) {
-                proc = DllInject.StartInjected(fullPath, args, yytoolkitDllpath);
+                proc = yytkLauncher.StartPreloaded(RunnerPath, GamePath, yytoolkitDllpath);
             }
             else {
-                ProcessStartInfo info = new(fullPath, args)
+                ProcessStartInfo info = new(fullPath, $"-game \"{GamePath}\"")
                 {
                     UseShellExecute = true
                 };

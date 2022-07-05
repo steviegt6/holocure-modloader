@@ -24,7 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-C
 		shared.targets = shared.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.Injector", "HoloCure.ModLoader.Injector\HoloCure.ModLoader.Injector.csproj", "{E8887461-1011-4788-8701-65E67F78853A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Windows", "HoloCure.ModLoader.YYTK.Windows\HoloCure.ModLoader.YYTK.Windows.csproj", "{9997ECA0-6F7A-40A1-8539-78F8E9628940}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.MacOS", "HoloCure.ModLoader.YYTK.MacOS\HoloCure.ModLoader.YYTK.MacOS.csproj", "{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Linux", "HoloCure.ModLoader.YYTK.Linux\HoloCure.ModLoader.YYTK.Linux.csproj", "{146CE500-53DD-4753-970A-4D17794725C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK", "HoloCure.ModLoader.YYTK\HoloCure.ModLoader.YYTK.csproj", "{EACF196D-FAAA-424E-9A18-635DBC4F32F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,9 +73,21 @@ Global
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8887461-1011-4788-8701-65E67F78853A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8887461-1011-4788-8701-65E67F78853A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8887461-1011-4788-8701-65E67F78853A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8887461-1011-4788-8701-65E67F78853A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{146CE500-53DD-4753-970A-4D17794725C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{146CE500-53DD-4753-970A-4D17794725C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{146CE500-53DD-4753-970A-4D17794725C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{146CE500-53DD-4753-970A-4D17794725C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug|Any CPU.Build.0 = Debug|x86
+		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release|Any CPU.ActiveCfg = Release|x86
+		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release|Any CPU.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

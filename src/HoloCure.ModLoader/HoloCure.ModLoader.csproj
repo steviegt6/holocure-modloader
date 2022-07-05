@@ -14,8 +14,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HoloCure.ModLoader.API\HoloCure.ModLoader.API.csproj" />
-      <ProjectReference Include="..\HoloCure.ModLoader.Injector\HoloCure.ModLoader.Injector.csproj" />
       <ProjectReference Include="..\HoloCure.ModLoader.Updater\HoloCure.ModLoader.Updater.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.Linux\HoloCure.ModLoader.YYTK.Linux.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.MacOS\HoloCure.ModLoader.YYTK.MacOS.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.Windows\HoloCure.ModLoader.YYTK.Windows.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.YYTK\HoloCure.ModLoader.YYTK.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -24,19 +27,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\lib\YYToolkit\LICENSE.txt">
-        <Link>YYToolkit\LICENSE.txt</Link>
+      <Content Include="..\lib\YYToolkit-windows\LICENSE.txt">
+        <Link>YYToolkit-windows\LICENSE.txt</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
         
-      <Content Include="..\lib\YYToolkit\README.txt">
-        <Link>YYToolkit\README.txt</Link>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Content Include="..\lib\YYToolkit-windows\README.txt">
+        <Link>YYToolkit-windows\README.txt</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
         
-      <Content Include="..\lib\YYToolkit\YYToolkit.dll">
-        <Link>YYToolkit\YYToolkit.dll</Link>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Content Include="..\lib\YYToolkit-windows\YYToolkit.dll">
+        <Link>YYToolkit-windows\YYToolkit.dll</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Update="..\lib\YYToolkit-windows" />
     </ItemGroup>
 </Project>

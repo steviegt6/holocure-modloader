@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
-namespace HoloCure.ModLoader.Injector.Windows
+namespace HoloCure.ModLoader.YYTK.Windows
 {
     // Adapted from https://github.com/Archie-osu/YYToolkit/blob/stable/YYLauncher/WinAPI.cs
     [SupportedOSPlatform("windows")]
