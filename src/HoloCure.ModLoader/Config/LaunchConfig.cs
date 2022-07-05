@@ -31,6 +31,8 @@ namespace HoloCure.ModLoader.Config
         public Dictionary<string, LaunchProfile> Profiles { get; set; } = new();
 
         public static void SerializeConfig(LaunchConfig config) {
+            Directory.CreateDirectory(Program.Storage.BasePath);
+            
             File.WriteAllText(
                 Path.Combine(Program.Storage.BasePath, "launch_config.json"),
                 JsonConvert.SerializeObject(config, Formatting.Indented)
@@ -38,6 +40,8 @@ namespace HoloCure.ModLoader.Config
         }
 
         public static LaunchConfig DeserializeConfig() {
+            Directory.CreateDirectory(Program.Storage.BasePath);
+            
             string path = Path.Combine(Program.Storage.BasePath, "launch_config.json");
             
             if (!File.Exists(path)) {
