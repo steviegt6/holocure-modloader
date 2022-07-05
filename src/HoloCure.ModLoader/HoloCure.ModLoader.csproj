@@ -29,21 +29,6 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
         
-      <Content Include="..\lib\YYToolkit\Plugins\Chapter2_EnableDebug.dll">
-        <Link>YYToolkit\Plugins\Chapter2_EnableDebug.dll</Link>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        
-      <Content Include="..\lib\YYToolkit\Plugins\Chapter2_HardMode.dll">
-        <Link>YYToolkit\Plugins\Chapter2_HardMode.dll</Link>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        
-      <Content Include="..\lib\YYToolkit\Plugins\ExamplePlugin.dll">
-        <Link>YYToolkit\Plugins\ExamplePlugin.dll</Link>
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        
       <Content Include="..\lib\YYToolkit\README.txt">
         <Link>YYToolkit\README.txt</Link>
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
