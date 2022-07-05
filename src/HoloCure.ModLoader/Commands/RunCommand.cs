@@ -104,7 +104,7 @@ namespace HoloCure.ModLoader.Commands
             loader.PatchGame(data);
 
             WriteGameData(data, runner);
-            await ExecuteGame(runner, loader);
+            await ExecuteGame(runner, loader, GetYYToolkitDllPath());
             loader.UnloadMods();
             RestoreBackupData(runner);
         }
@@ -220,10 +220,22 @@ namespace HoloCure.ModLoader.Commands
             Program.Logger.LogMessage($"Game data written to \"{ctx.FileName}\".", LogLevels.Debug);
         }
 
-        private async Task ExecuteGame(IRunner runner, Loader loader) {
+        private async Task ExecuteGame(IRunner runner, Loader loader, string? yytoolkitDllPath) {
+            if (yytoolkitDllPath is null) {
+                if (OperatingSystem.IsWindows()) {
+                    Program.Logger.LogMessage("Could not resolve a YYToolkit.dll file to inject!", LogLevels.Error);
+                }
+                else {
+                    Program.Logger.LogMessage("Skipping YYToolkit.dll injection because the user's OS is unsupported...", LogLevels.Debug);
+                }
+            }
+            
+            // TODO: Toggle for preloading.
+            
+            
             Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
-            loader.GameStarted();
-            RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = runner.ExecuteGame();
+            loader.GameStarting();
+            RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = runner.ExecuteGame(yytoolkitDllPath);
 
             switch (ctx.Value.result) {
                 case ExecuteGameResult.ProcessNull:
@@ -266,5 +278,24 @@ namespace HoloCure.ModLoader.Commands
         }
 
         #endregion
+
+        // TODO: Specify custom path in config.
+        private static string? GetYYToolkitDllPath() {
+            if (!OperatingSystem.IsWindows()) {
+                Program.Logger.LogMessage("YYToolkit is only supported on Windows, skipping injection...", LogLevels.Warn);
+                return null;
+            }
+
+            string implicitCwd = Path.Combine("YYToolkit", "YYToolkit.dll");
+            string explicitCwd = Path.Combine(Environment.CurrentDirectory, "YYToolkit", "YYToolkit.dll");
+            string assemblyDir = Path.Combine(typeof(Program).Assembly.Location, "YYToolkit", "YYToolkit.dll");
+
+            string? AsFile(string path) {
+                return File.Exists(path) ? path : null;
+            }
+
+            string? path = AsFile(implicitCwd) ?? AsFile(explicitCwd) ?? AsFile(assemblyDir);
+            return path is not null ? Path.GetFullPath(path) : null;
+        }
     }
 }

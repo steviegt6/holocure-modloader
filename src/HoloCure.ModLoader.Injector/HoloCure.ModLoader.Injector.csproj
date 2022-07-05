@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\shared.targets" />
+
+    <PropertyGroup>
+        <AssemblyVersion>$(HoloCureModLoaderInjectorersion)</AssemblyVersion>
+        <FileVersion>$(HoloCureModLoaderInjectorVersion)</FileVersion>
+        <PackageVersion>$(HoloCureModLoaderInjectorVersion)</PackageVersion>
+    </PropertyGroup>
+
+</Project>

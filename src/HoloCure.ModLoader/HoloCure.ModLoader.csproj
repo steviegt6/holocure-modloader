@@ -14,11 +14,44 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HoloCure.ModLoader.API\HoloCure.ModLoader.API.csproj" />
+      <ProjectReference Include="..\HoloCure.ModLoader.Injector\HoloCure.ModLoader.Injector.csproj" />
       <ProjectReference Include="..\HoloCure.ModLoader.Updater\HoloCure.ModLoader.Updater.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="CliFx" Version="2.2.6" />
       <PackageReference Include="Spectre.Console" Version="0.44.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\lib\YYToolkit\LICENSE.txt">
+        <Link>YYToolkit\LICENSE.txt</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        
+      <Content Include="..\lib\YYToolkit\Plugins\Chapter2_EnableDebug.dll">
+        <Link>YYToolkit\Plugins\Chapter2_EnableDebug.dll</Link>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        
+      <Content Include="..\lib\YYToolkit\Plugins\Chapter2_HardMode.dll">
+        <Link>YYToolkit\Plugins\Chapter2_HardMode.dll</Link>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        
+      <Content Include="..\lib\YYToolkit\Plugins\ExamplePlugin.dll">
+        <Link>YYToolkit\Plugins\ExamplePlugin.dll</Link>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        
+      <Content Include="..\lib\YYToolkit\README.txt">
+        <Link>YYToolkit\README.txt</Link>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        
+      <Content Include="..\lib\YYToolkit\YYToolkit.dll">
+        <Link>YYToolkit\YYToolkit.dll</Link>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 </Project>

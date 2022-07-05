@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-C
 		shared.targets = shared.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.Injector", "HoloCure.ModLoader.Injector\HoloCure.ModLoader.Injector.csproj", "{E8887461-1011-4788-8701-65E67F78853A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,5 +67,9 @@ Global
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F12D16D-CA5C-4128-9E89-B1A4E6D17676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8887461-1011-4788-8701-65E67F78853A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8887461-1011-4788-8701-65E67F78853A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8887461-1011-4788-8701-65E67F78853A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8887461-1011-4788-8701-65E67F78853A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

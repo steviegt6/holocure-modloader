@@ -149,11 +149,11 @@ namespace HoloCure.ModLoader.API
             }
         }
 
-        public void GameStarted() {
-            Logger.LogMessage("Received game started event, alerting mods...", LogLevels.Debug);
+        public void GameStarting() {
+            Logger.LogMessage("Received game starting event, alerting mods...", LogLevels.Debug);
             
             foreach (IMod mod in Mods) {
-                mod.GameStarted();
+                mod.GameStarting();
             }
         }
     }

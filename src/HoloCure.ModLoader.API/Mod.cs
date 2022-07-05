@@ -26,8 +26,8 @@ namespace HoloCure.ModLoader.API
         public virtual void PatchGame(UndertaleData gameData) {
         }
 
-        /// <inheritdoc cref="IMod.GameStarted"/>
-        public virtual void GameStarted() {
+        /// <inheritdoc cref="IMod.GameStarting"/>
+        public virtual void GameStarting() {
         }
     }
 }

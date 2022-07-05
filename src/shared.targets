@@ -11,6 +11,7 @@
         <HoloCureAPIVersion>0.1.0</HoloCureAPIVersion>
         <HoloCureModLoaderVersion>0.1.0</HoloCureModLoaderVersion>
         <HoloCureModLoaderAPIVersion>0.1.0</HoloCureModLoaderAPIVersion>
+        <HoloCureModLoaderInjectorVersion>0.1.0</HoloCureModLoaderInjectorVersion>
         <HoloCureModLoaderLoggingVersion>0.1.0</HoloCureModLoaderLoggingVersion>
         <HoloCureModLoaderUpdaterVersion>0.1.0</HoloCureModLoaderUpdaterVersion>
         

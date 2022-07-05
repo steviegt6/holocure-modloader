@@ -40,8 +40,8 @@ namespace HoloCure.ModLoader.API
         void PatchGame(UndertaleData gameData);
 
         /// <summary>
-        ///     Executed once the game as been started.
+        ///     Executed once the game begins to start.
         /// </summary>
-        void GameStarted();
+        void GameStarting();
     }
 }

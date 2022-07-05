@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using HoloCure.ModLoader.Injector;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -94,7 +96,7 @@ namespace HoloCure.ModLoader.Runners
             }
         }
 
-        public RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame() {
+        public RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(string? yytoolkitDllpath) {
             RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> Ctx(ExecuteGameResult result, Process? proc) {
                 return MakeReturnCtx((result, proc));
             }
@@ -110,12 +112,21 @@ namespace HoloCure.ModLoader.Runners
             }
 
             // TODO: Wonder if we should specify -game (should do that later to support non-uniform file layouts).
-            ProcessStartInfo info = new(fullPath)
-            {
-                UseShellExecute = true
-            };
-            
-            Process? proc = Process.Start(info);
+
+            string args = string.Join(' ', "-game", $"\"{GamePath}\"");
+            Process? proc;
+
+            if (yytoolkitDllpath is not null) {
+                proc = DllInject.StartInjected(fullPath, args, yytoolkitDllpath);
+            }
+            else {
+                ProcessStartInfo info = new(fullPath, args)
+                {
+                    UseShellExecute = true
+                };
+                
+                proc = Process.Start(info);
+            }
 
             return Ctx(proc is null ? ExecuteGameResult.ProcessNull : ExecuteGameResult.Success, proc);
         }
