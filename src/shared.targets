@@ -8,17 +8,17 @@
     
     <!-- Project Versions -->
     <PropertyGroup>
-        <HoloCureAPIVersion>0.1.0</HoloCureAPIVersion>
-        <HoloCureModLoaderVersion>0.1.0</HoloCureModLoaderVersion>
-        <HoloCureModLoaderAPIVersion>0.1.0</HoloCureModLoaderAPIVersion>
-        <HoloCureModLoaderLoggingVersion>0.1.0</HoloCureModLoaderLoggingVersion>
-        <HoloCureModLoaderUpdaterVersion>0.1.0</HoloCureModLoaderUpdaterVersion>
-        <HoloCureModLoaderYYTKVersion>0.1.0</HoloCureModLoaderYYTKVersion>
+        <UnifiedVersion>0.1.0</UnifiedVersion>
         
-        <!-- Dreadful YYTK OS compat stuff. -->
-        <HoloCureModLoaderYYTKWindowsVersion>0.1.0</HoloCureModLoaderYYTKWindowsVersion>
-        <HoloCureModLoaderYYTKMacOSVersion>0.1.0</HoloCureModLoaderYYTKMacOSVersion>
-        <HoloCureModLoaderYYTKLinuxVersion>0.1.0</HoloCureModLoaderYYTKLinuxVersion>
+        <HoloCureAPIVersion>$(UnifiedVersion)</HoloCureAPIVersion>
+        <HoloCureModLoaderVersion>$(UnifiedVersion)</HoloCureModLoaderVersion>
+        <HoloCureModLoaderAPIVersion>$(UnifiedVersion)</HoloCureModLoaderAPIVersion>
+        <HoloCureModLoaderLoggingVersion>$(UnifiedVersion)</HoloCureModLoaderLoggingVersion>
+        <HoloCureModLoaderUpdaterVersion>$(UnifiedVersion)</HoloCureModLoaderUpdaterVersion>
+        <HoloCureModLoaderYYTKVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKVersion>
+        <HoloCureModLoaderYYTKWindowsVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKWindowsVersion>
+        <HoloCureModLoaderYYTKMacOSVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKMacOSVersion>
+        <HoloCureModLoaderYYTKLinuxVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKLinuxVersion>
         
         <!-- These are submodules and need to be watched closely when updating. -->
         <CodeChickenDiffpatchVersion>1.0.0</CodeChickenDiffpatchVersion>
@@ -88,9 +88,10 @@
             </ReferenceCopyLocalPaths>
 
             <!-- Output path: Libraries/ProjectName/ProjectVersion/ -->
-            <ReferenceCopyLocalPaths Condition="%(ReferenceCopyLocalPaths.ReferenceSourceTarget) == 'ProjectReference'">
+            <!-- TODO: FIXME -->
+            <!-- <ReferenceCopyLocalPaths Condition="%(ReferenceCopyLocalPaths.ReferenceSourceTarget) == 'ProjectReference'">
                 <DestinationSubDirectory>Libraries\%(ReferenceCopyLocalPaths.DllName)\%(ReferenceCopyLocalPaths.VersionHack)\</DestinationSubDirectory>
-            </ReferenceCopyLocalPaths>
+            </ReferenceCopyLocalPaths> -->
         </ItemGroup>
     </Target>
 

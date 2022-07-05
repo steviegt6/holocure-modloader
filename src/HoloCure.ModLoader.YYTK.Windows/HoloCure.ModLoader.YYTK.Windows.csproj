@@ -5,8 +5,8 @@
         <AssemblyVersion>$(HoloCureModLoaderYYTKWindows)</AssemblyVersion>
         <FileVersion>$(HoloCureModLoaderYYTKWindows)</FileVersion>
         <PackageVersion>$(HoloCureModLoaderYYTKWindows)</PackageVersion>
-        <Platform>x86</Platform>
-        <Platforms>x86;AnyCPU</Platforms>
+        <!-- <Platform>x86</Platform>
+        <Platforms>x86;AnyCPU</Platforms> -->
     </PropertyGroup>
 
     <ItemGroup>
