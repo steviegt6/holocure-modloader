@@ -16,13 +16,13 @@ namespace HoloCure.ModLoader.YYTK
         /// <param name="gamePath">The path to the game file.</param>
         /// <param name="yytkDll">The path to the DLL to inject.</param>
         /// <returns>The started process.</returns>
-        Process? StartPreloaded(string runnerPath, string? gamePath, string yytkDll);
-
+        Process? StartPreloaded(string runnerPath, string? gamePath, string yytkDll); 
+        
+        // <param name="hostType">Yeah.</param>
         /// <summary>
         ///     Gets the DLL path of the platform YYTK DLL.
         /// </summary>
-        /// <param name="hostType">Yeah.</param>
         /// <returns>The absolute path.</returns>
-        string? GetYYTKDllPath(Type hostType);
+        string? GetYYTKDllPath(/*Type hostType*/);
     }
 }

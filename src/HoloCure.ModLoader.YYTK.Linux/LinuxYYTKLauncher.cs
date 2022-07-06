@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if LINUX
+using System;
 using System.Diagnostics;
 using System.Runtime.Versioning;
 
@@ -13,8 +14,8 @@ namespace HoloCure.ModLoader.YYTK.Linux
             return StartPreloadedInner(runnerPath, gamePath, yytkDll);
         }
 
-        public string? GetYYTKDllPath(Type hostType) {
-            return YYTKUtils.BruteForceSearch("YYToolkit-linux", "YYToolkit.so", hostType);
+        public string? GetYYTKDllPath(/*Type hostType*/) {
+            return YYTKUtils.BruteForceSearch("YYToolkit-linux", "YYToolkit.so" /*, hostType*/);
         }
 
         [SupportedOSPlatform("linux")]
@@ -23,3 +24,4 @@ namespace HoloCure.ModLoader.YYTK.Linux
         }
     }
 }
+#endif

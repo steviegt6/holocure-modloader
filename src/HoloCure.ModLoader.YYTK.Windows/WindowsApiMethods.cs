@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if WINDOWS
+using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
@@ -71,3 +72,4 @@ namespace HoloCure.ModLoader.YYTK.Windows
         );
     }
 }
+#endif

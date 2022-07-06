@@ -105,7 +105,7 @@ namespace HoloCure.ModLoader.Commands
             loader.PatchGame(data);
 
             WriteGameData(data, runner);
-            await ExecuteGame(runner, loader, OperatingSystemUtils.MakePlatformYYTKLauncher());
+            await ExecuteGame(runner, loader, OperatingSystemUtils.GetYYTKLauncher());
             loader.UnloadMods();
             RestoreBackupData(runner);
         }
@@ -214,7 +214,7 @@ namespace HoloCure.ModLoader.Commands
         private async Task ExecuteGame(IRunner runner, Loader loader, IYYTKLauncher yytkLauncher) {
             Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
 
-            if (yytkLauncher.GetYYTKDllPath(typeof(Program)) is null) {
+            if (yytkLauncher.GetYYTKDllPath(/*typeof(Program)*/) is null) {
                 Program.Logger.LogMessage("Unable to resolve YYTK DLL for your platform. Game will be launched without YYTK.", LogLevels.Error);
             }
             

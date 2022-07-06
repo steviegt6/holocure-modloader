@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using HoloCure.ModLoader.YYTK;
-using HoloCure.ModLoader.YYTK.Windows;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -114,7 +112,7 @@ namespace HoloCure.ModLoader.Runners
 
             Process? proc;
 
-            string? yytoolkitDllpath = yytkLauncher.GetYYTKDllPath(typeof(Program));
+            string? yytoolkitDllpath = yytkLauncher.GetYYTKDllPath(/*typeof(Program)*/);
             if (yytoolkitDllpath is not null) {
                 proc = yytkLauncher.StartPreloaded(RunnerPath, GamePath, yytoolkitDllpath);
             }

@@ -1,9 +1,6 @@
 ﻿using System;
 using HoloCure.ModLoader.Runners;
 using HoloCure.ModLoader.YYTK;
-using HoloCure.ModLoader.YYTK.Linux;
-using HoloCure.ModLoader.YYTK.MacOS;
-using HoloCure.ModLoader.YYTK.Windows;
 
 namespace HoloCure.ModLoader.Utils
 {
@@ -20,12 +17,16 @@ namespace HoloCure.ModLoader.Utils
             );
         }
 
-        public static IYYTKLauncher MakePlatformYYTKLauncher() {
-            if (OperatingSystem.IsWindows()) return new WindowsYYTKLauncher();
-            if (OperatingSystem.IsMacOS()) return new MacOSYYTKLauncher();
-            if (OperatingSystem.IsLinux()) return new LinuxYYTKLauncher();
-
-            throw new PlatformNotSupportedException("You are not using an operating system with an existing YYTK launcher.");
+        public static IYYTKLauncher GetYYTKLauncher() {
+#if WINDOWS
+            return new YYTK.Windows.WindowsYYTKLauncher();
+#elif MACOS
+            return new YYTK.MacOS.MacOSYYTKLauncher();
+#elif LINUX
+            return new YYTK.Linux.LinuxYYTKLauncher();
+#else
+            throw new PlatformNotSupportedException("The given operating system does not support YYTK.");
+#endif
         }
     }
 }
