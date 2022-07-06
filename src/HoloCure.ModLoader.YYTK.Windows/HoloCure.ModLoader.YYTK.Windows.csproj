@@ -5,8 +5,19 @@
         <AssemblyVersion>$(HoloCureModLoaderYYTKWindows)</AssemblyVersion>
         <FileVersion>$(HoloCureModLoaderYYTKWindows)</FileVersion>
         <PackageVersion>$(HoloCureModLoaderYYTKWindows)</PackageVersion>
+        <Configurations>Release (Windows);Debug (Linux);Debug (Windows);Release (Linux);Release (MacOS);Debug (MacOS)</Configurations>
+        <Platforms>AnyCPU</Platforms>
         <!-- <Platform>x86</Platform>
         <Platforms>x86;AnyCPU</Platforms> -->
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release (Windows)' ">
+      <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug (Windows)' ">
+      <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+      <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
     </PropertyGroup>
 
     <ItemGroup>

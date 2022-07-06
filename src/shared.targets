@@ -1,12 +1,57 @@
 <Project ToolsVersion="14.0">
-    <!-- Project Presets -->
+    <!-- region Operating System flags -->
+    
+    <PropertyGroup>
+        <Configurations>Release (Windows);Debug (Linux);Debug (Windows);Release (Linux);Release (MacOS);Debug (MacOS)</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release (Windows)' ">
+        <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug (Windows)' ">
+        <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+        <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release (Windows)' ">
+        <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug (Linux)' ">
+        <DefineConstants>TRACE;LINUX</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug (Windows)' ">
+        <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release (Linux)' ">
+        <DefineConstants>TRACE;LINUX</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release (MacOS)' ">
+        <DefineConstants>TRACE;MACOS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug (MacOS)' ">
+        <DefineConstants>TRACE;MACOS</DefineConstants>
+    </PropertyGroup>
+
+    <!-- endregion Operating System flags -->
+    
+    <!-- region Project Presets -->
+    
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <!-- endregion Project Presets -->
     
-    <!-- Project Versions -->
+    <!-- region Project Versions -->
+    
     <PropertyGroup>
         <UnifiedVersion>0.1.0</UnifiedVersion>
         
@@ -25,8 +70,12 @@
         <UndertaleModLibVersion>1.0.0</UndertaleModLibVersion>
     </PropertyGroup>
 
-    <!-- Library redirection code taken from tModLoader. -->
-
+    <!-- endregion Project Versions -->
+    
+    <!-- region Library redirction. -->
+    
+    <!-- Taken and partially adapted from tModLoader. -->
+    
     <!--See first answer in https://stackoverflow.com/questions/55946010/how-to-specify-output-folder-for-the-referenced-nuget-packages for how this was created-->
     <!--Dotnet Core 3.0 and later don't support subdirectory searching; so we use workaround https://github.com/dotnet/sdk/issues/10366#issuecomment-508854737 -->
     <Target Name="BuildRedirectNugetFilesToLib" AfterTargets="ResolveLockFileCopyLocalFiles">
@@ -98,15 +147,17 @@
     <Target Name="OverwriteDevRuntimeTargets" AfterTargets="GenerateBuildRuntimeConfigurationFiles" Condition="$(GenerateRuntimeConfigDevFile) == 'true'">
         <PropertyGroup>
             <DevRuntimeConfig>
-{
-  "runtimeOptions": {
-     "additionalProbingPaths": [
-       "Libraries"
-    ]
-  }
-}
+                {
+                "runtimeOptions": {
+                "additionalProbingPaths": [
+                "Libraries"
+                ]
+                }
+                }
             </DevRuntimeConfig>
         </PropertyGroup>
         <WriteLinesToFile File="$(ProjectRuntimeConfigDevFilePath)" Lines="$(DevRuntimeConfig)" Overwrite="true" Encoding="UTF-8" />
     </Target>
+
+    <!-- endregion Library redirction. -->
 </Project>
