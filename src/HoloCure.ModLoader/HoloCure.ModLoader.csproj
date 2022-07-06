@@ -10,6 +10,7 @@
         
         <UseAppHost>false</UseAppHost>
         <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
+        <Prefer32Bit>true</Prefer32Bit>
     </PropertyGroup>
 
     <ItemGroup>
