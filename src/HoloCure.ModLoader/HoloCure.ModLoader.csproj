@@ -10,10 +10,6 @@
         
         <UseAppHost>false</UseAppHost>
         <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
-
-        <Platform Condition="$(DefineConstants.Contains('WINDOWS'))">x86</Platform>
-        <Platforms Condition="$(DefineConstants.Contains('WINDOWS'))">AnyCPU;x86</Platforms>
-        <TargetFramework Condition="$(DefineConstants.Contains('WINDOWS'))">net6.0-windows</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
