@@ -60,6 +60,8 @@
         <HoloCureModLoaderAPIVersion>$(UnifiedVersion)</HoloCureModLoaderAPIVersion>
         <HoloCureModLoaderLoggingVersion>$(UnifiedVersion)</HoloCureModLoaderLoggingVersion>
         <HoloCureModLoaderUpdaterVersion>$(UnifiedVersion)</HoloCureModLoaderUpdaterVersion>
+        
+        <!-- YYTK -->
         <HoloCureModLoaderYYTKVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKVersion>
         <HoloCureModLoaderYYTKWindowsVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKWindowsVersion>
         <HoloCureModLoaderYYTKMacOSVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKMacOSVersion>

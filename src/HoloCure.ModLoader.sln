@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Lin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK", "HoloCure.ModLoader.YYTK\HoloCure.ModLoader.YYTK.csproj", "{EACF196D-FAAA-424E-9A18-635DBC4F32F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Konata.Windows", "Konata.Windows\Konata.Windows.csproj", "{B93A27E5-5C77-47A5-A833-40620B50E5F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release (Windows)|Any CPU = Release (Windows)|Any CPU
@@ -189,5 +191,17 @@ Global
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (MacOS)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
