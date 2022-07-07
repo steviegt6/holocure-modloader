@@ -1,6 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\shared.targets" />
+
+    <PropertyGroup>
+        <KonataWindows>$(DefineConstants.Contains('WINDOWS'))</KonataWindows>
+        <KonataMacOS>$(DefineConstants.Contains('MACOS'))</KonataMacOS>
+        <KonataLinux>$(DefineConstants.Contains('LINUX'))</KonataLinux>
+    </PropertyGroup>
     
+    <Import Project="..\konata.targets" />
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         
@@ -26,26 +34,5 @@
     <ItemGroup>
       <PackageReference Include="CliFx" Version="2.2.6" />
       <PackageReference Include="Spectre.Console" Version="0.44.0" />
-    </ItemGroup>
-
-    <ItemGroup Condition="$(DefineConstants.Contains('WINDOWS'))">
-      <Content Include="..\lib\YYToolkit-windows\LICENSE.txt">
-        <Link>YYToolkit-windows\LICENSE.txt</Link>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        
-      <Content Include="..\lib\YYToolkit-windows\README.txt">
-        <Link>YYToolkit-windows\README.txt</Link>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        
-      <Content Include="..\lib\YYToolkit-windows\YYToolkit.dll">
-        <Link>YYToolkit-windows\YYToolkit.dll</Link>
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup Condition="$(DefineConstants.Contains('WINDOWS'))">
-      <Folder Update="..\lib\YYToolkit-windows" />
     </ItemGroup>
 </Project>
