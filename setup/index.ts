@@ -68,7 +68,7 @@ function makeSubmoduleElements(subCommits: SubmoduleCommitStatus[]) {
   subCommits.forEach((subCommit) => {
     data.push(`${subCommit.submoduleName},${subCommit.commit}`);
   });
-  return `    <SubmoduleData>\n${data.join("\n")}\n    </SubmoduleData>`;
+  return `        <SubmoduleData>\n${data.join("\n")}\n        </SubmoduleData>`;
 }
 
 async function main() {

@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-CA04-43F3-BA54-27BC6B5C6128}"
 	ProjectSection(SolutionItems) = preProject
 		shared.targets = shared.targets
+		git.targets = git.targets
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Windows", "HoloCure.ModLoader.YYTK.Windows\HoloCure.ModLoader.YYTK.Windows.csproj", "{9997ECA0-6F7A-40A1-8539-78F8E9628940}"

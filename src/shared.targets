@@ -48,6 +48,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        
+        <SourceRevisionId>$(CurrentCommit)|$(CurrentCommitShort)|$(CurrentBranch)|$(SubmoduleData)</SourceRevisionId>
     </PropertyGroup>
 
     <!-- endregion Project Presets -->

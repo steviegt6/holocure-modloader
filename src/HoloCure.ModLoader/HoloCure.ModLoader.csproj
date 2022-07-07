@@ -10,6 +10,8 @@
         
         <UseAppHost>false</UseAppHost>
         <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
+        
+        <SourceRevisionId>$(SourceRevisionId)</SourceRevisionId>
     </PropertyGroup>
 
     <ItemGroup>
