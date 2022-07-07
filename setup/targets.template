@@ -1,0 +1,9 @@
+<Project ToolsVersion="14.0">
+    <!-- Repository data. -->
+    <CurrentCommit>{{ $CURRENT_COMMIT }}</CurrentCommit>
+    <CurrentCommitShort>{{ $CURRENT_COMMIT_SHORT }}</CurrentCommitShort>
+    <CurrentBranch>{{ $CURRENT_BRANCH }}</CurrentBranch>
+
+    <!-- Submodule data. -->
+{{ $SUBMODULE_DATA }}
+</Project>

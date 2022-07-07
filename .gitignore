@@ -1,1 +1,7 @@
+# Force-include DLL files.
 !src/lib/YYToolkit-windows/*.dll
+
+# HoloCure.ModLoader setup files.
+setup/node_modules
+setup/dist
+src/git.targets

@@ -1,4 +1,6 @@
 <Project ToolsVersion="14.0">
+    <Import Project="git.targets" />
+
     <!-- region Operating System flags -->
     
     <PropertyGroup>
