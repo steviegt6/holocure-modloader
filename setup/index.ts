@@ -1,9 +1,8 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { cwd } from "process";
-import { prompts } from "prompts";
 import { wrapAwait } from "./await.js";
-import { brightWhite, color, pinkish } from "./color.js";
+import { dotnet } from "./dotnet.js";
 import {
   getBranch,
   getCommit,
@@ -12,7 +11,15 @@ import {
   shortenCommit,
   SubmoduleCommitStatus,
 } from "./git.js";
-import { addError, error, log, logVar, success, title, writeErrors } from "./logging.js";
+import {
+  addError,
+  error,
+  log,
+  logVar,
+  success,
+  title,
+  writeErrors,
+} from "./logging.js";
 
 async function getCommitStatus() {
   const commitRes = await getCommit();
@@ -68,13 +75,12 @@ function makeSubmoduleElements(subCommits: SubmoduleCommitStatus[]) {
   subCommits.forEach((subCommit) => {
     data.push(`${subCommit.submoduleName},${subCommit.commit}`);
   });
-  return `        <SubmoduleData>\n${data.join("\n")}\n        </SubmoduleData>`;
+  return `        <SubmoduleData>\n${data.join(
+    "\n"
+  )}\n        </SubmoduleData>`;
 }
 
-async function main() {
-  log(`Welcome to the ${title()} setup.`);
-  log("Gathering commit and branch info before starting...");
-  log("");
+async function git() {
   log("Determining current commit...");
   const { commit, commitShort } = await getCommitStatus();
   log("");
@@ -136,8 +142,25 @@ async function main() {
 
   writeFileSync(join(cwd(), "../src/git.targets"), targets);
   success("Wrote to ./src/git.targets");
+}
 
-  // TODO: Konata compilation.
+async function konata() {
+  log("Setting up Konata...")
+
+  log("Building Konata.Windows... (Debug)");
+  await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Debug", "-a", "x86"]);
+
+  log("Building Konata.Windows... (Release)");
+  await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Release", "-a", "x86"]);
+}
+
+async function main() {
+  log(`Welcome to the ${title()} setup.`);
+  log("Gathering commit and branch info before starting...");
+  log("");
+  await git();
+  log("");
+  await konata();
 }
 
 wrapAwait(main)();
