@@ -25,10 +25,6 @@
     <ItemGroup>
       <ProjectReference Include="..\HoloCure.ModLoader.API\HoloCure.ModLoader.API.csproj" />
       <ProjectReference Include="..\HoloCure.ModLoader.Updater\HoloCure.ModLoader.Updater.csproj" />
-        <ProjectReference Include="..\HoloCure.ModLoader.YYTK\HoloCure.ModLoader.YYTK.csproj" />
-      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.Linux\HoloCure.ModLoader.YYTK.Linux.csproj" Condition="$(DefineConstants.Contains('LINUX'))" />
-      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.MacOS\HoloCure.ModLoader.YYTK.MacOS.csproj" Condition="$(DefineConstants.Contains('MACOS'))" />
-      <ProjectReference Include="..\HoloCure.ModLoader.YYTK.Windows\HoloCure.ModLoader.YYTK.Windows.csproj" Condition="$(DefineConstants.Contains('WINDOWS'))" />
     </ItemGroup>
 
     <ItemGroup>
