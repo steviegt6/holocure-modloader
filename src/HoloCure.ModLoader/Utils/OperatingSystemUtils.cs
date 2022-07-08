@@ -9,17 +9,17 @@ namespace HoloCure.ModLoader.Utils
 #if WINDOWS
             return new WindowsRunner(gamePath, backupPath, runnerPath); 
 #elif MACOS
-            throw new System.PlatformNotSupportException("MacOS does not have a supported runner."
+            throw new System.PlatformNotSupportedException("MacOS does not have a supported runner."
                 + "\nIf you would like to contribute, you may open a ticket or create a pr @ https://github.com/steviegt6/holocure-modloader/"
                 + "\nCurrently, non-Windows support is relied on entirely by other contributors, so anything is appreciated!"
             );
 #elif LINUX
-            throw new System.PlatformNotSupportException("Linux does not have a supported runner."
+            throw new System.PlatformNotSupportedException("Linux does not have a supported runner."
                 + "\nIf you would like to contribute, you may open a ticket or create a pr @ https://github.com/steviegt6/holocure-modloader/"
                 + "\nCurrently, non-Windows support is relied on entirely by other contributors, so anything is appreciated!"
             );
 #else
-            throw new System.PlatformNotSupportException("Your operating system does not have a supported runner."
+            throw new System.PlatformNotSupportedException("Your operating system does not have a supported runner."
                 + "\nIf you would like to contribute, you may open a ticket or create a pr @ https://github.com/steviegt6/holocure-modloader/"
                 + "\nCurrently, non-Windows support is relied on entirely by other contributors, so anything is appreciated!"
             );
