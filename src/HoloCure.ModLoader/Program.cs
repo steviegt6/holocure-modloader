@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using CliFx;
 using HoloCure.ModLoader.API.Platform;
@@ -62,7 +63,39 @@ namespace HoloCure.ModLoader
 
         private static void LogHeader(string[] args, string version) {
             if (!args.Contains("-v") && !args.Contains("--version") && !args.Contains("-h") && !args.Contains("--help")) {
-                Logger.LogMessage($"HoloCure.ModLoader v{version}", LogLevels.Info);
+                AssemblyInformationalVersionAttribute? attr = typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+                if (attr is null) {
+                    Logger.LogMessage("Source revision ID data could not be found.", LogLevels.Error);
+                    Logger.LogMessage($"HoloCure.ModLoader v{version}", LogLevels.Info);
+                }
+                else {
+                    string[] split = attr.InformationalVersion.Split('+', 2);
+
+                    if (split.Length != 2) {
+                        Logger.LogMessage("Splitting source revision ID failed.", LogLevels.Error);
+                    }
+                    else {
+                        string[] data = split[1].Split('|', 4);
+
+                        if (data.Length != 4) {
+                            Logger.LogMessage("Splitting data from source revision ID failed.", LogLevels.Error);
+                            Logger.LogMessage($"HoloCure.ModLoader v{version}", LogLevels.Info);
+                        }
+                        else {
+                            Logger.LogMessage($"HoloCure.ModLoader v{version} // {data[1]} - {data[2]}", LogLevels.Info);
+
+                            string[] submodules = data[3].Trim().Split('\n');
+                            
+                            Logger.LogMessage("Using submodules:", LogLevels.Info);
+
+                            foreach (string submodule in submodules) {
+                                string[] sub = submodule.Split(',');
+                                Logger.LogMessage($"    {sub[0]} - {sub[1]}", LogLevels.Info);
+                            }
+                        }
+                    }
+                }
             }
 
             Logger.MarkupMessage(

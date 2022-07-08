@@ -1,9 +1,8 @@
-﻿#if WINDOWS
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 
-namespace HoloCure.ModLoader.YYTK.Windows
+namespace Konata.Windows
 {
     // Adapted from https://github.com/Archie-osu/YYToolkit/blob/stable/YYLauncher/WinAPI.cs
     [SupportedOSPlatform("windows")]
@@ -50,4 +49,3 @@ namespace HoloCure.ModLoader.YYTK.Windows
         }
     }
 }
-#endif

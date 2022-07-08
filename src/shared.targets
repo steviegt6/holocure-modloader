@@ -1,4 +1,6 @@
 <Project ToolsVersion="14.0">
+    <Import Project="git.targets" />
+
     <!-- region Operating System flags -->
     
     <PropertyGroup>
@@ -46,6 +48,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
+        
+        <SourceRevisionId>$(CurrentCommit)|$(CurrentCommitShort)|$(CurrentBranch)|$(SubmoduleData)</SourceRevisionId>
     </PropertyGroup>
 
     <!-- endregion Project Presets -->
@@ -60,10 +64,6 @@
         <HoloCureModLoaderAPIVersion>$(UnifiedVersion)</HoloCureModLoaderAPIVersion>
         <HoloCureModLoaderLoggingVersion>$(UnifiedVersion)</HoloCureModLoaderLoggingVersion>
         <HoloCureModLoaderUpdaterVersion>$(UnifiedVersion)</HoloCureModLoaderUpdaterVersion>
-        <HoloCureModLoaderYYTKVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKVersion>
-        <HoloCureModLoaderYYTKWindowsVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKWindowsVersion>
-        <HoloCureModLoaderYYTKMacOSVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKMacOSVersion>
-        <HoloCureModLoaderYYTKLinuxVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKLinuxVersion>
         
         <!-- These are submodules and need to be watched closely when updating. -->
         <CodeChickenDiffpatchVersion>1.0.0</CodeChickenDiffpatchVersion>

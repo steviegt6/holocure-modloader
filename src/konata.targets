@@ -1,0 +1,114 @@
+<Project ToolsVersion="14.0">
+    <ItemGroup Condition="$(KonataWindows)">
+        <!-- region Windows YYTK files -->
+        
+        <Content Include="..\lib\YYToolkit-windows\LICENSE.txt">
+            <Link>Konata.Windows\YYToolkit\LICENSE.txt</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\lib\YYToolkit-windows\README.txt">
+            <Link>Konata.Windows\YYToolkit\README.txt</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\lib\YYToolkit-windows\YYToolkit.dll">
+            <Link>Konata.Windows\YYToolkit\YYToolkit.dll</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        
+        <Folder Update="..\lib\YYToolkit-windows" />
+        
+        <!-- endregion Windows YYTK files -->
+        
+        <!-- region Release Konata.Windows files -->
+
+        <Content Include="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86\Konata.Windows.deps.json" Condition="$(DefineConstants.Contains('RELEASE'))">
+            <Link>Konata.Windows\Konata.Windows.deps.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86\Konata.Windows.dll" Condition="$(DefineConstants.Contains('RELEASE'))">
+            <Link>Konata.Windows\Konata.Windows.dll</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86\Konata.Windows.exe" Condition="$(DefineConstants.Contains('RELEASE'))">
+            <Link>Konata.Windows\Konata.Windows.exe</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86\Konata.Windows.pdb" Condition="$(DefineConstants.Contains('RELEASE'))">
+            <Link>Konata.Windows\Konata.Windows.pdb</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86\Konata.Windows.runtimeconfig.json" Condition="$(DefineConstants.Contains('RELEASE'))">
+            <Link>Konata.Windows\Konata.Windows.runtimeconfig.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Folder Update="..\Konata.Windows\bin\x86\Release\net6.0-windows\win-x86" Condition="$(DefineConstants.Contains('RELEASE'))" />
+        
+        <!-- endregion Release Konata.Windows files -->
+
+        <!-- region Debug Konata.Windows files -->
+
+        <Content Include="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86\Konata.Windows.deps.json" Condition="$(DefineConstants.Contains('DEBUG'))">
+            <Link>Konata.Windows\Konata.Windows.deps.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86\Konata.Windows.dll" Condition="$(DefineConstants.Contains('DEBUG'))">
+            <Link>Konata.Windows\Konata.Windows.dll</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86\Konata.Windows.exe" Condition="$(DefineConstants.Contains('DEBUG'))">
+            <Link>Konata.Windows\Konata.Windows.exe</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86\Konata.Windows.pdb" Condition="$(DefineConstants.Contains('DEBUG'))">
+            <Link>Konata.Windows\Konata.Windows.pdb</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Content Include="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86\Konata.Windows.runtimeconfig.json" Condition="$(DefineConstants.Contains('DEBUG'))">
+            <Link>Konata.Windows\Konata.Windows.runtimeconfig.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+
+        <Folder Update="..\Konata.Windows\bin\x86\Debug\net6.0-windows\win-x86" Condition="$(DefineConstants.Contains('DEBUG'))" />
+
+        <!-- endregion Debug Konata.Windows files -->
+    </ItemGroup>
+
+    <PropertyGroup Condition="$(KonataMacOS)">
+        <!-- region MacOS YYTK files -->
+        
+        <!-- endregion MacOS YYTK files -->
+        
+        <!-- region Release Konata.MacOS Files -->
+        
+        <!-- endregion Release Konata.MacOS Files -->
+        
+        <!-- region Debug Konata.MacOS Files -->
+        
+        <!-- endregion Debug Konata.MacOS Files -->
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(KonataLinux)">
+        <!-- region Linux YYTK files -->
+
+        <!-- endregion Linux YYTK files -->
+
+        <!-- region Release Konata.Linux Files -->
+
+        <!-- endregion Release Konata.Linux Files -->
+
+        <!-- region Debug Konata.Linux Files -->
+
+        <!-- endregion Debug Konata.Linux Files -->
+    </PropertyGroup>
+</Project>

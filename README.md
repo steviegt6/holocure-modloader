@@ -21,7 +21,23 @@ Any projects making use of UndertaleModTool (in our case, specifically any proje
 
 ## Building
 
-If you would like to build this project from source instead of grabbing a pre-built release binary, you may do so by cloning this repository, restoring submodules, and building `./src/HoloCure.ModLoader.sln`.
+If you would like to build this project from source instead of grabbing a pre-built release binary, you may do so by doing the following:
+
+```bash
+# Clone the repository.
+git clone https://github.com/steviegt6/holocure-modloader.git
+
+# Change your directory.
+cd holocure-modloader # (or whatever folder name you chose while cloning)
+
+# Run the setup script.
+bash setup.sh # You can use dash, etc.; Windows users can just run the .bat file however they like (thought I'd recommend running ina terminal to monitor the output).
+
+# Assuming the setup executed with no errors, you can then build the solution.
+# Please choose whether you want to build for Debug or Release and the operating system to use.
+# Examples: Release (Windows), Debug (Linux), etc.
+dotnet build ./src/HoloCure.ModLoader.sln -c "[Debug|Release| (Windows|MacOS|Linux)"
+```
 
 ## Project Structure
 

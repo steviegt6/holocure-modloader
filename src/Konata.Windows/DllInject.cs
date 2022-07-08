@@ -1,5 +1,4 @@
-﻿#if WINDOWS
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Runtime.Versioning;
 using System.Text;
 
 // Adapted from https://github.com/Archie-osu/YYToolkit/blob/stable/YYLauncher/Utils.cs
-namespace HoloCure.ModLoader.YYTK.Windows
+namespace Konata.Windows
 {
     /// <summary>
     ///     Utilities for injecting a native DLL into a process.
@@ -106,4 +105,3 @@ namespace HoloCure.ModLoader.YYTK.Windows
         }
     }
 }
-#endif

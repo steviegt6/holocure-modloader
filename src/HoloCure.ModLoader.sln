@@ -22,15 +22,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-CA04-43F3-BA54-27BC6B5C6128}"
 	ProjectSection(SolutionItems) = preProject
 		shared.targets = shared.targets
+		git.targets = git.targets
+		konata.targets = konata.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Windows", "HoloCure.ModLoader.YYTK.Windows\HoloCure.ModLoader.YYTK.Windows.csproj", "{9997ECA0-6F7A-40A1-8539-78F8E9628940}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.MacOS", "HoloCure.ModLoader.YYTK.MacOS\HoloCure.ModLoader.YYTK.MacOS.csproj", "{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK.Linux", "HoloCure.ModLoader.YYTK.Linux\HoloCure.ModLoader.YYTK.Linux.csproj", "{146CE500-53DD-4753-970A-4D17794725C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader.YYTK", "HoloCure.ModLoader.YYTK\HoloCure.ModLoader.YYTK.csproj", "{EACF196D-FAAA-424E-9A18-635DBC4F32F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Konata.Windows", "Konata.Windows\Konata.Windows.csproj", "{B93A27E5-5C77-47A5-A833-40620B50E5F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,54 +125,6 @@ Global
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (Linux)|Any CPU.Build.0 = Debug (Linux)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (Windows)|Any CPU.ActiveCfg = Debug (Windows)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (Windows)|Any CPU.Build.0 = Debug (Windows)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (Linux)|Any CPU.ActiveCfg = Release (Linux)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (Linux)|Any CPU.Build.0 = Release (Linux)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (MacOS)|Any CPU.ActiveCfg = Release (MacOS)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
-		{EACF196D-FAAA-424E-9A18-635DBC4F32F2}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (Linux)|Any CPU.Build.0 = Debug (Linux)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (Windows)|Any CPU.ActiveCfg = Debug (Windows)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (Windows)|Any CPU.Build.0 = Debug (Windows)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (Linux)|Any CPU.ActiveCfg = Release (Linux)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (Linux)|Any CPU.Build.0 = Release (Linux)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (MacOS)|Any CPU.ActiveCfg = Release (MacOS)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
-		{146CE500-53DD-4753-970A-4D17794725C9}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (Linux)|Any CPU.Build.0 = Debug (Linux)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (Windows)|Any CPU.ActiveCfg = Debug (Windows)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (Windows)|Any CPU.Build.0 = Debug (Windows)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (Linux)|Any CPU.ActiveCfg = Release (Linux)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (Linux)|Any CPU.Build.0 = Release (Linux)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (MacOS)|Any CPU.ActiveCfg = Release (MacOS)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
-		{D8C35352-46C0-438F-AE8B-7B3E00A2EADE}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (Linux)|Any CPU.Build.0 = Debug (Linux)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (Windows)|Any CPU.ActiveCfg = Debug (Windows)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (Windows)|Any CPU.Build.0 = Debug (Windows)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (Linux)|Any CPU.ActiveCfg = Release (Linux)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (Linux)|Any CPU.Build.0 = Release (Linux)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (MacOS)|Any CPU.ActiveCfg = Release (MacOS)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
-		{9997ECA0-6F7A-40A1-8539-78F8E9628940}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
@@ -189,5 +137,17 @@ Global
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
 		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (MacOS)|Any CPU.Build.0 = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

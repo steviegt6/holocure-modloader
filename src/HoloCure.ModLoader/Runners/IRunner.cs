@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
-using HoloCure.ModLoader.YYTK;
+using System.Threading.Tasks;
+using HoloCure.ModLoader.Konata;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -38,9 +39,9 @@ namespace HoloCure.ModLoader.Runners
         /// <summary>
         ///     Executes the game using the runner.
         /// </summary>
-        /// <param name="yytkLauncher">Platform-dependant YYTK launcher..</param>
+        /// <param name="bootstrapper">YYTK bootstrapper using Konata.</param>
         /// <returns>The status result and the associated game process. The process will be null if it failed to launch.</returns>
-        RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(IYYTKLauncher yytkLauncher);
+        Task<RunnerReturnCtx<(ExecuteGameResult result, Process? proc)>> ExecuteGame(IKonataBootstrapper bootstrapper);
 
         RunnerReturnCtx<RestoreBackupDataResult> RestoreBackupData();
     }
