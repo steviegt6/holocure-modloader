@@ -32,17 +32,8 @@ jobs:
       - name: Restore submodules
         run: git submodule update --init --recursive
       
-      - name: Enter ./setup/
-        run: cd setup
-      
-      - name: Install npm dependencies
-        run: npm install
-
       - name: Run setup
-        run: npm run start
-      
-      - name: Exit setup
-        run: cd ..
+        run: cd setup && npm install && npm run start
 
       - name: Restore dependencies
         run: dotnet restore src/HoloCure.ModLoader.sln
