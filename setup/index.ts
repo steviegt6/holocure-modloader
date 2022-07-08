@@ -148,13 +148,29 @@ async function doGit() {
 }
 
 async function doKonata() {
-  log("Setting up Konata...")
+  log("Setting up Konata...");
 
-  log("Building Konata.Windows... (Debug)");
-  await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Debug", "-a", "x86"]);
+  switch (process.platform) {
+    case "win32":
+      log("Building Konata.Windows... (Debug)");
+      await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Debug", "-a", "x86"]);
+    
+      log("Building Konata.Windows... (Release)");
+      await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Release", "-a", "x86"]);
+      break;
 
-  log("Building Konata.Windows... (Release)");
-  await dotnet(["build", join("..", "src", "Konata.Windows", "Konata.Windows.csproj"), "-c", "Release", "-a", "x86"]);
+    case "darwin":
+      log("No Konata projects to build for MacOS.");
+      break;
+
+    case "linux":
+      log("No Konata projects to build for Linux.");
+      break;
+    
+      default:
+      log("No Konata projects to build for the given platform.");
+      break;
+  }
 }
 
 async function main() {
