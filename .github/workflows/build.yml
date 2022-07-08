@@ -9,7 +9,7 @@ on:
 
 jobs:
   linux:
-    runs-on: ubunut-latest
+    runs-on: ubuntu-latest
     if: "github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'misc: safe to test')"
 
     strategy:
