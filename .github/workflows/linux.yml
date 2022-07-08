@@ -1,0 +1,68 @@
+name: .NET
+
+on:
+  push:
+  pull_request:
+    types: [labeled]
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubunut-latest
+    if: "github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'misc: safe to test')"
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore submodules
+        run: git submodule update --init --recursive
+      
+      - name: Enter ./setup/
+        run: cd setup
+      
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Run setup
+        run: npm run start
+      
+      - name: Exit setup
+        run: cd ..
+
+      - name: Restore dependencies
+        run: dotnet restore src/HoloCure.ModLoader.sln
+
+      - name: Building Debug
+        run: dotnet build src/HoloCure.ModLoader.sln -c "Debug (Linux)" --no-restore
+
+      - name: Building Release
+        run: dotnet build src/HoloCure.ModLoader.sln -c "Release (Linux)" --no-restore
+
+      - name: Uploading Debug Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          Name: Debug Build
+          path: |
+            ./src/HoloCure.ModLoader/bin/Debug (Linux)/net6.0/
+
+      - name: Uploading Release Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          Name: Release Build
+          path: |
+            ./src/HoloCure.ModLoader/bin/Release (Linux)/net6.0/
