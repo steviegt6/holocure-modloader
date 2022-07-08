@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using HoloCure.ModLoader.YYTK;
+using System.Threading.Tasks;
+using HoloCure.ModLoader.Konata;
 using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Runners
@@ -95,7 +96,7 @@ namespace HoloCure.ModLoader.Runners
             }
         }
 
-        public RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ExecuteGame(IYYTKLauncher yytkLauncher) {
+        public async Task<RunnerReturnCtx<(ExecuteGameResult result, Process? proc)>> ExecuteGame(IKonataBootstrapper bootstrapper) {
             RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> Ctx(ExecuteGameResult result, Process? proc) {
                 return MakeReturnCtx((result, proc));
             }
@@ -110,20 +111,7 @@ namespace HoloCure.ModLoader.Runners
                 return Ctx(ExecuteGameResult.RunnerMissing, null);
             }
 
-            Process? proc;
-
-            string? yytoolkitDllpath = yytkLauncher.GetYYTKDllPath(/*typeof(Program)*/);
-            if (yytoolkitDllpath is not null) {
-                proc = yytkLauncher.StartPreloaded(RunnerPath, GamePath, yytoolkitDllpath);
-            }
-            else {
-                ProcessStartInfo info = new(fullPath, $"-game \"{GamePath}\"")
-                {
-                    UseShellExecute = true
-                };
-                
-                proc = Process.Start(info);
-            }
+            Process? proc = await bootstrapper.StartGame(RunnerPath, GamePath);
 
             return Ctx(proc is null ? ExecuteGameResult.ProcessNull : ExecuteGameResult.Success, proc);
         }

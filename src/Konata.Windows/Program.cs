@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Konata.Windows
@@ -19,7 +20,9 @@ namespace Konata.Windows
                 }
             }
 
-            DllInject.StartInjected(args[0], $"-game \"{args[1]}\"", args[2]);
+            Process? proc = DllInject.StartInjected(args[0], $"-game \"{args[1]}\"", args[2]);
+            
+            Console.WriteLine(proc?.Id ?? -1);
         }
     }
 }

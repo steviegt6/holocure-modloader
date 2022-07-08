@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using CliFx.Attributes;
 using HoloCure.ModLoader.API;
 using HoloCure.ModLoader.Config;
+using HoloCure.ModLoader.Konata;
 using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Runners;
 using HoloCure.ModLoader.Utils;
-using HoloCure.ModLoader.YYTK;
 using Spectre.Console;
 using UndertaleModLib;
 
@@ -105,7 +105,7 @@ namespace HoloCure.ModLoader.Commands
             loader.PatchGame(data);
 
             WriteGameData(data, runner);
-            await ExecuteGame(runner, loader, OperatingSystemUtils.GetYYTKLauncher());
+            await ExecuteGame(runner, loader, OperatingSystemUtils.GetKonataBootstrapper());
             loader.UnloadMods();
             RestoreBackupData(runner);
         }
@@ -211,15 +211,11 @@ namespace HoloCure.ModLoader.Commands
             Program.Logger.LogMessage($"Game data written to \"{ctx.FileName}\".", LogLevels.Debug);
         }
 
-        private async Task ExecuteGame(IRunner runner, Loader loader, IYYTKLauncher yytkLauncher) {
+        private async Task ExecuteGame(IRunner runner, Loader loader, IKonataBootstrapper bootstrapper) {
             Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
-
-            if (yytkLauncher.GetYYTKDllPath(/*typeof(Program)*/) is null) {
-                Program.Logger.LogMessage("Unable to resolve YYTK DLL for your platform. Game will be launched without YYTK.", LogLevels.Error);
-            }
             
             loader.GameStarting();
-            RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = runner.ExecuteGame(yytkLauncher);
+            RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = await runner.ExecuteGame(bootstrapper);
 
             switch (ctx.Value.result) {
                 case ExecuteGameResult.ProcessNull:
