@@ -75,6 +75,12 @@
     <!-- region Library redirction. -->
     
     <!-- Taken and partially adapted from tModLoader. -->
+
+    <PropertyGroup>
+        <DirectorySeparator Condition="$(DefineConstants.Contains('WINDOWS'))">\</DirectorySeparator>
+        <DirectorySeparator Condition="$(DefineConstants.Contains('MACOS'))">/</DirectorySeparator>
+        <DirectorySeparator Condition="$(DefineConstants.Contains('LINUX'))">/</DirectorySeparator>
+    </PropertyGroup>
     
     <!--See first answer in https://stackoverflow.com/questions/55946010/how-to-specify-output-folder-for-the-referenced-nuget-packages for how this was created-->
     <!--Dotnet Core 3.0 and later don't support subdirectory searching; so we use workaround https://github.com/dotnet/sdk/issues/10366#issuecomment-508854737 -->
@@ -123,7 +129,7 @@
 
             <!-- Extract the DLL name from the path. -->
             <ReferenceCopyLocalPaths Condition="%(ReferenceCopyLocalPaths.ReferenceSourceTarget) == 'ProjectReference'">
-                <DllName>$([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').Remove($([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').IndexOf(".dll"))).SubString($([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').LastIndexOf("\"))).Substring(1))</DllName>
+                <DllName>$([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').Remove($([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').IndexOf(".dll"))).SubString($([System.String]::Copy('%(ReferenceCopyLocalPaths.ResolvedFrom)').LastIndexOf("$(DirectorySeparator)"))).Substring(1))</DllName>
             </ReferenceCopyLocalPaths>
 
             <!-- Convert the DLL name to a dotless name (e.g. "My.Project.Reference" -> "MyProjectReference"). Note that the .dll file extension is not carried over, as DllName omits that. -->
