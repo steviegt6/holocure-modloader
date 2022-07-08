@@ -47,14 +47,14 @@ jobs:
       - name: Uploading Debug Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Debug Build
+          Name: Debug Build (Linux)
           path: |
             ./src/HoloCure.ModLoader/bin/Debug (Linux)/net6.0/
 
       - name: Uploading Release Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Release Build
+          Name: Release Build (Linux)
           path: |
             ./src/HoloCure.ModLoader/bin/Release (Linux)/net6.0/
 
@@ -97,14 +97,14 @@ jobs:
       - name: Uploading Debug Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Debug Build
+          Name: Debug Build (MacOS)
           path: |
             ./src/HoloCure.ModLoader/bin/Debug (MacOS)/net6.0/
 
       - name: Uploading Release Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Release Build
+          Name: Release Build (MacOS)
           path: |
             ./src/HoloCure.ModLoader/bin/Release (MacOS)/net6.0/
 
@@ -147,13 +147,13 @@ jobs:
       - name: Uploading Debug Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Debug Build
+          Name: Debug Build (Windows)
           path: |
             ./src/HoloCure.ModLoader/bin/Debug (Windows)/net6.0/
 
       - name: Uploading Release Artifacts
         uses: actions/upload-artifact@v2
         with:
-          Name: Release Build
+          Name: Release Build (Windows)
           path: |
             ./src/HoloCure.ModLoader/bin/Release (Windows)/net6.0/
