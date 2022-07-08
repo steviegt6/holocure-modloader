@@ -7,6 +7,7 @@ import {
   getBranch,
   getCommit,
   getSubmoduleCommits,
+  git,
   parseSubmoduleCommits,
   shortenCommit,
   SubmoduleCommitStatus,
@@ -80,7 +81,9 @@ function makeSubmoduleElements(subCommits: SubmoduleCommitStatus[]) {
   )}\n        </SubmoduleData>`;
 }
 
-async function git() {
+async function doGit() {
+  log("Gathering commit and branch info before starting...");
+  log("");
   log("Determining current commit...");
   const { commit, commitShort } = await getCommitStatus();
   log("");
@@ -144,7 +147,7 @@ async function git() {
   success("Wrote to ./src/git.targets");
 }
 
-async function konata() {
+async function doKonata() {
   log("Setting up Konata...")
 
   log("Building Konata.Windows... (Debug)");
@@ -156,11 +159,13 @@ async function konata() {
 
 async function main() {
   log(`Welcome to the ${title()} setup.`);
-  log("Gathering commit and branch info before starting...");
   log("");
-  await git();
+  log("Updating submodules...");
+  await git(["submodule", "update", "--init", "--recursive"]);
   log("");
-  await konata();
+  await doGit();
+  log("");
+  await doKonata();
 }
 
 wrapAwait(main)();
