@@ -65,12 +65,6 @@
         <HoloCureModLoaderLoggingVersion>$(UnifiedVersion)</HoloCureModLoaderLoggingVersion>
         <HoloCureModLoaderUpdaterVersion>$(UnifiedVersion)</HoloCureModLoaderUpdaterVersion>
         
-        <!-- YYTK -->
-        <HoloCureModLoaderYYTKVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKVersion>
-        <HoloCureModLoaderYYTKWindowsVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKWindowsVersion>
-        <HoloCureModLoaderYYTKMacOSVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKMacOSVersion>
-        <HoloCureModLoaderYYTKLinuxVersion>$(UnifiedVersion)</HoloCureModLoaderYYTKLinuxVersion>
-        
         <!-- These are submodules and need to be watched closely when updating. -->
         <CodeChickenDiffpatchVersion>1.0.0</CodeChickenDiffpatchVersion>
         <UndertaleModLibVersion>1.0.0</UndertaleModLibVersion>
