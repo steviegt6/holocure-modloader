@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using UndertaleModLib;
+using DogScepterLib.Core;
 
 namespace HoloCure.ModLoader.API
 {
@@ -37,7 +37,7 @@ namespace HoloCure.ModLoader.API
         ///     Invoked when the game is ready to be patched.
         /// </summary>
         /// <param name="gameData">The loaded game's data, which should be patched.</param>
-        void PatchGame(UndertaleData gameData);
+        void PatchGame(GMData gameData);
 
         /// <summary>
         ///     Executed once the game begins to start.

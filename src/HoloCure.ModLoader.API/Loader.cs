@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using DogScepterLib.Core;
 using HoloCure.ModLoader.API.Platform;
 using HoloCure.ModLoader.Logging;
 using HoloCure.ModLoader.Logging.Writers;
 using Newtonsoft.Json;
-using UndertaleModLib;
 
 [assembly: InternalsVisibleTo("HoloCure.ModLoader.API.Tests")]
 
@@ -69,7 +69,7 @@ namespace HoloCure.ModLoader.API
                 Exception? exception = null;
 
                 try {
-                    metadata = JsonConvert.DeserializeObject<ModMetadata>(manifestPath);
+                    metadata = JsonConvert.DeserializeObject<ModMetadata>(File.ReadAllText(manifestPath));
                 }
                 catch (Exception e) {
                     exception = e;
@@ -91,7 +91,8 @@ namespace HoloCure.ModLoader.API
                     Logger.LogMessage($"The specified DLL file {metadata.DllName} was not present in {fullName}.", LogLevels.Error);
                     continue;
                 }
-                
+
+                metadata.ParentDirectory = fullName;
                 ModMetadataList.Add(metadata);
             }
         }
@@ -141,7 +142,7 @@ namespace HoloCure.ModLoader.API
             ModAssemblyResolver.UnsubscribeAll();
         }
 
-        public void PatchGame(UndertaleData game) {
+        public void PatchGame(GMData game) {
             Logger.LogMessage($"Patching game with {Mods.Count} loaded mods...", LogLevels.Debug);
 
             foreach (IMod mod in Mods) {

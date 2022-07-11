@@ -7,7 +7,6 @@ using System.Runtime.Loader;
 using HoloCure.ModLoader.API.Exceptions;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.DependencyModel.Resolution;
-using UndertaleModLib;
 
 namespace HoloCure.ModLoader.API
 {
