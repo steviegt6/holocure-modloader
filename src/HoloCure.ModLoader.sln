@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndertaleModLib", "lib\UndertaleModTool\UndertaleModLib\UndertaleModLib.csproj", "{E2174012-6D2E-481A-A6C1-978E25613D92}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiffPatch", "lib\DiffPatch\DiffPatch.csproj", "{00A24CB6-D68F-44CA-8C4D-CC261869C32B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoloCure.ModLoader", "HoloCure.ModLoader\HoloCure.ModLoader.csproj", "{40F93AB6-5645-4EE3-9B0D-DF07589D241D}"
@@ -27,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{E450F355-C
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Konata.Windows", "Konata.Windows\Konata.Windows.csproj", "{B93A27E5-5C77-47A5-A833-40620B50E5F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogScepterLib", "lib\DogScepter\DogScepterLib\DogScepterLib.csproj", "{7EE14750-A308-4155-B90A-F3F226CF338C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,18 +125,6 @@ Global
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
 		{582DE555-FEB0-4A08-ABBD-3BBBE44A64DC}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Windows)|Any CPU.ActiveCfg = Release (Windows)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Windows)|Any CPU.Build.0 = Release (Windows)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (Linux)|Any CPU.ActiveCfg = Debug (Linux)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (Linux)|Any CPU.Build.0 = Debug (Linux)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (Windows)|Any CPU.ActiveCfg = Debug (Windows)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (Windows)|Any CPU.Build.0 = Debug (Windows)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Linux)|Any CPU.ActiveCfg = Release (Linux)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (Linux)|Any CPU.Build.0 = Release (Linux)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (MacOS)|Any CPU.ActiveCfg = Release (MacOS)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Release (MacOS)|Any CPU.Build.0 = Release (MacOS)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.ActiveCfg = Debug (MacOS)|Any CPU
-		{E2174012-6D2E-481A-A6C1-978E25613D92}.Debug (MacOS)|Any CPU.Build.0 = Debug (MacOS)|Any CPU
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (Windows)|Any CPU.Build.0 = Debug|Any CPU
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
@@ -149,5 +137,17 @@ Global
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Release (MacOS)|Any CPU.Build.0 = Debug|Any CPU
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
 		{B93A27E5-5C77-47A5-A833-40620B50E5F9}.Debug (MacOS)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (Windows)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (Windows)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (Linux)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (Linux)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Release (MacOS)|Any CPU.Build.0 = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (MacOS)|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE14750-A308-4155-B90A-F3F226CF338C}.Debug (MacOS)|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

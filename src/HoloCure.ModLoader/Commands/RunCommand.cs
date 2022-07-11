@@ -4,14 +4,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using CliFx.Attributes;
+using DogScepterLib.Core;
 using HoloCure.ModLoader.API;
 using HoloCure.ModLoader.Config;
 using HoloCure.ModLoader.Konata;
 using HoloCure.ModLoader.Logging;
-using HoloCure.ModLoader.Runners;
 using HoloCure.ModLoader.Utils;
 using Spectre.Console;
-using UndertaleModLib;
 
 namespace HoloCure.ModLoader.Commands
 {
@@ -21,13 +20,13 @@ namespace HoloCure.ModLoader.Commands
         [CommandOption("game", 'g', Description = "Overrides the default launch profile.")]
         public string? Game { get; set; }
         
-        [CommandOption("game-path", 'p', Description = "Manually sets the game path. If not set but --game is set, reads from the config. If not specified in the config, assumes CWD.")]
+        [CommandOption("game-path", 'p', Description = "Overrides the game path specified in the game profile (--game).")]
         public string? GamePath { get; set; }
 
-        [CommandOption("backup-path", 'b', Description = "Manually sets the backup path. If not set but --game is set, reads from the config. If not specified in the config, assumes CWD.")]
+        [CommandOption("backup-path", 'b', Description = "Overrides the backup path specified in the game profile (--game).")]
         public string? BackupPath { get; set; }
 
-        [CommandOption("runner-path", 'r', Description = "Manually sets the runner path. If not set but --game is set, reads from the config. If not specified in the config, assumes CWD.")]
+        [CommandOption("runner-path", 'r', Description = "Overrides the runner path specified in the game profile (--game).")]
         public string? RunnerPath { get; set; }
 
         protected override async ValueTask ExecuteAsync() {
@@ -75,185 +74,157 @@ namespace HoloCure.ModLoader.Commands
             if (RunnerPath is null) {
                 throw new NullReferenceException("No valid runner path specified, either specify one with --runner-path or correctly set the profile runner path.");
             }
-            
+
             Program.Logger.MarkupMessage($"Running on profile: [white]{Game}[/]", "Running on profile: " + Game, LogLevels.Debug);
             Program.Logger.MarkupMessage($"Using game path: [white]{GamePath}[/]", "Using game path: " + GamePath, LogLevels.Debug);
             Program.Logger.MarkupMessage($"Using backup path: [white]{BackupPath}[/]", "Using backup path: " + BackupPath, LogLevels.Debug);
             Program.Logger.MarkupMessage($"Using runner path: [white]{RunnerPath}[/]", "Using runner path: " + RunnerPath, LogLevels.Debug);
 
-            // Use these paths in the runner.
-            IRunner runner = OperatingSystemUtils.MakePlatformRunner(GamePath, BackupPath, RunnerPath);
-
-            VerifyDataExists(runner);
-            RestoreLeftoverBackupData(runner);
-            BackupGameData(runner);
+            VerifyDataExists();
+            RestoreLeftoverBackupData();
+            BackupGameData();
 
             Program.Logger.MarkupMessage(
                 "Loading game data... [white](this may take a while)[/]",
                 "Loading game data... (this may take a while)",
                 LogLevels.Debug
             );
-            UndertaleData data = LoadGameData(runner);
+            GMData data = ReadData();
             Program.Logger.LogMessage("Successfully loaded game data.", LogLevels.Debug);
 
             // TODO: Add external probing paths.
-            Loader loader = new(data.GeneralInfo.Name.Content, new List<string>());
+            Loader loader = new(Game, new List<string>());
             loader.ResolveMods();
             loader.SortMods();
             loader.InstantiateMods();
             loader.LoadMods();
             loader.PatchGame(data);
 
-            WriteGameData(data, runner);
-            await ExecuteGame(runner, loader, OperatingSystemUtils.GetKonataBootstrapper());
+            WriteData(data);
+            await ExecuteGame(loader, OperatingSystemUtils.GetKonataBootstrapper());
             loader.UnloadMods();
-            RestoreBackupData(runner);
+            RestoreBackupData();
         }
 
-        #region IRunner Wrapping
+        #region Runner Logic
 
-        private void VerifyDataExists(IRunner runner) {
-            RunnerReturnCtx<bool> ctx = runner.DataExists();
-            if (!ctx.Value) {
-                throw new FileNotFoundException("Could not find game data file, expected at: " + ctx.FileName);
-            }
+        private void VerifyDataExists() {
+            if (!File.Exists(GamePath)) throw new FileNotFoundException("Could not resolve data file: " + GamePath);
         }
 
-        private void RestoreLeftoverBackupData(IRunner runner) {
+        private void RestoreLeftoverBackupData() {
             Program.Logger.LogMessage("Restoring leftover backup data...", LogLevels.Debug);
-            RunnerReturnCtx<RestoreLeftOverBackupDataResult> ctx = runner.RestoreLeftoverBackupData();
 
-            switch (ctx.Value) {
-                case RestoreLeftOverBackupDataResult.PermissionError:
-                    // TODO: Mention issue deleting backup as well. Split, maybe?
-                    throw new UnauthorizedAccessException("Cannot overwrite game data at: " + ctx.FileName);
+            if (!File.Exists(BackupPath)) {
+                Program.Logger.LogMessage("Backup file not found, skipping.", LogLevels.Debug);
+                return;
+            }
 
-                case RestoreLeftOverBackupDataResult.Skipped:
-                    Program.Logger.LogMessage(
-                        "Backup file not found, assuming either the program successfully exited previously or this is a first launch, skipping...",
-                        LogLevels.Debug
-                    );
-                    break;
-
-                case RestoreLeftOverBackupDataResult.Success:
-                    Program.Logger.LogMessage("Restored game data from backup file. The mod loader did not successfully close last session.", LogLevels.Warn);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                Program.Logger.LogMessage("Backup file found - mod loader did not successfully close last launch - restoring...", LogLevels.Warn);
+                File.Copy(BackupPath, GamePath!, true);
+                Program.Logger.LogMessage("Backup file restored.", LogLevels.Debug);
+            }
+            catch {
+                Program.Logger.LogMessage("Could not restore backup!", LogLevels.Fatal);
+                throw;
             }
         }
 
-        // TODO: Necessary every time? Maybe so to ensure users updating their HoloCure game don't have outdated backups (reading comprehension issue).
-        private void BackupGameData(IRunner runner) {
+        private void BackupGameData() {
             Program.Logger.LogMessage("Backing up game data...", LogLevels.Debug);
-            RunnerReturnCtx<BackupDataResult> ctx = runner.BackupData();
+            
+            if (!File.Exists(GamePath)) throw new FileNotFoundException("Could not resolve game file to back up.");
 
-            switch (ctx.Value) {
-                case BackupDataResult.MissingFile:
-                    throw new FileNotFoundException("Cannot backup game data file as game data file does not exist, expected at: " + ctx.FileName);
-
-                case BackupDataResult.PermissionError:
-                    throw new UnauthorizedAccessException($"Could not backup game data, permission denied to write to file \"{ctx.BackupName}\".");
-
-                case BackupDataResult.Skipped:
-                    Program.Logger.LogMessage($"Skipped backing up to \"{ctx.BackupName}\".", LogLevels.Debug);
-                    break;
-
-                case BackupDataResult.Success:
-                    Program.Logger.LogMessage($"Game data backed up to \"{ctx.BackupName}\".", LogLevels.Debug);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                File.Copy(GamePath, BackupPath!, true);
+                Program.Logger.LogMessage("Backed up game data.", LogLevels.Debug);
+            }
+            catch {
+                Program.Logger.LogMessage("Could not back up game data!", LogLevels.Fatal);
+                throw;
             }
         }
 
-        private UndertaleData LoadGameData(IRunner runner) {
-            RunnerReturnCtx<(LoadGameDataResult result, UndertaleData? data)> ctx = runner.LoadGameData();
+        private GMData ReadData() {
+            Program.Logger.LogMessage("Reading game data...", LogLevels.Debug);
+            
+            if (!File.Exists(GamePath)) throw new FileNotFoundException("Could not resolve game file to read.");
 
-            switch (ctx.Value.result) {
-                case LoadGameDataResult.MissingFile:
-                    throw new FileNotFoundException("Could not find game data file, expected at: " + ctx.FileName);
-
-                case LoadGameDataResult.PermissionError:
-                    throw new UnauthorizedAccessException("Cannot read game data file, permission denied at: " + ctx.FileName);
-
-                case LoadGameDataResult.Success:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                Stream stream = new FileStream(GamePath, FileMode.Open, FileAccess.Read);
+                GMDataReader reader = new(stream, GamePath)
+                {
+                    Data =
+                    {
+                        Logger = message => { Program.Logger.LogMessage(message, LogLevels.Debug); }
+                    }
+                };
+                reader.Deserialize();
+                return reader.Data;
             }
-
-            // Assuming not null because we should be throwing if the object is null.
-            // The object should only be null if the returned result isn't successful.
-            // We can always just add a check, but undefined behavior is awesome.
-            // Didn't your parents ever tell you that?
-            return ctx.Value.data!;
+            catch {
+                Program.Logger.LogMessage("An exception occured while reading the game data.", LogLevels.Fatal);
+                throw;
+            }
         }
 
-        private void WriteGameData(UndertaleData data, IRunner runner) {
+        private void WriteData(GMData data) {
             Program.Logger.LogMessage("Writing game data to file for execution...", LogLevels.Debug);
-            RunnerReturnCtx<WriteGameDataResult> ctx = runner.WriteGameData(data);
 
-            switch (ctx.Value) {
-                case WriteGameDataResult.PermissionError:
-                    throw new UnauthorizedAccessException("Cannot write game data file, permission denied at: " + ctx.FileName);
-
-                case WriteGameDataResult.Success:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                using Stream stream = new FileStream(GamePath!, FileMode.Create, FileAccess.Write);
+                using GMDataWriter writer = new(data, stream, GamePath);
+                writer.Write();
+                writer.Flush();
             }
-
-            Program.Logger.LogMessage($"Game data written to \"{ctx.FileName}\".", LogLevels.Debug);
+            catch {
+                Program.Logger.LogMessage("An exception occured while writing the game data.", LogLevels.Fatal);
+                throw;
+            }
         }
 
-        private async Task ExecuteGame(IRunner runner, Loader loader, IKonataBootstrapper bootstrapper) {
+        private async Task ExecuteGame(Loader loader, IKonataBootstrapper bootstrapper) {
             Program.Logger.LogMessage("Executing game...", LogLevels.Debug);
             
+            string fillPath = Path.GetFullPath(RunnerPath!);
+            if (!File.Exists(fillPath)) throw new FileNotFoundException("Could not resolve runner file to execute.");
+            
             loader.GameStarting();
-            RunnerReturnCtx<(ExecuteGameResult result, Process? proc)> ctx = await runner.ExecuteGame(bootstrapper);
+            
+            Process? proc;
+            
+            try {
+                proc = await bootstrapper.StartGame(RunnerPath!, GamePath!);
+            }
+            catch {
+                Program.Logger.LogMessage("Could not start game!", LogLevels.Fatal);
+                throw;
+            }
+            
+            if (proc is null) throw new NullReferenceException("Could not start game!");
+            await proc.WaitForExitAsync();
+        }
+        
+        private void RestoreBackupData() {
+            Program.Logger.LogMessage("Game exited, restoring saved backup data...", LogLevels.Debug);
+            
+            if (!File.Exists(BackupPath)) throw new FileNotFoundException("Could not resolve backup file to restore.");
 
-            switch (ctx.Value.result) {
-                case ExecuteGameResult.ProcessNull:
-                    throw new NullReferenceException("The started process was somehow null.");
-
-                case ExecuteGameResult.RunnerMissing:
-                    throw new FileNotFoundException("The runner file is missing, expected at: " + ctx.RunnerName);
-
-                case ExecuteGameResult.RunnerNull:
-                    throw new NullReferenceException("The runner file is null. Somehow, it was never auto-initialized.");
-
-                case ExecuteGameResult.Success:
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                File.Copy(BackupPath, GamePath!, true);
+            }
+            catch {
+                Program.Logger.LogMessage("Could not restore backup!", LogLevels.Fatal);
+                throw;
             }
 
-            await ctx.Value.proc!.WaitForExitAsync();
-        }
-
-        private void RestoreBackupData(IRunner runner) {
-            Program.Logger.LogMessage("Game exited, restoring saved backup data...", LogLevels.Debug);
-            RunnerReturnCtx<RestoreBackupDataResult> ctx = runner.RestoreBackupData();
-
-            switch (ctx.Value) {
-                case RestoreBackupDataResult.MissingFile:
-                    throw new FileNotFoundException("Missing backup file (how did this happen?), expected at: " + ctx.FileName);
-                
-                case RestoreBackupDataResult.PermissionError:
-                    // TODO: Blah blah blah message about deleting too.
-                    throw new UnauthorizedAccessException("Cannot overwrite game data at: " + ctx.FileName);
-                
-                case RestoreBackupDataResult.Success:
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                File.Delete(BackupPath);
+            }
+            catch {
+                Program.Logger.LogMessage("Could not delete backup file!", LogLevels.Fatal);
+                throw;
             }
         }
 

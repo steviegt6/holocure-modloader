@@ -1,0 +1,9 @@
+﻿{
+  "unique_name": "HoloCure.API",
+  "dll_name": "HoloCure.API.dll",
+  "mod_class": "HoloCure.API.HoloCureAPIMod",
+  "version": "1.0.0",
+  "dependencies": [],
+  "sort_before": [],
+  "sort_after": []
+}

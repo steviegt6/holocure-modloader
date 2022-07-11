@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\HoloCure.ModLoader.Logging\HoloCure.ModLoader.Logging.csproj" />
       <ProjectReference Include="..\lib\DiffPatch\DiffPatch.csproj" />
+      <ProjectReference Include="..\lib\DogScepter\DogScepterLib\DogScepterLib.csproj" />
       <ProjectReference Include="..\lib\UndertaleModTool\UndertaleModLib\UndertaleModLib.csproj" />
     </ItemGroup>
 

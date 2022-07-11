@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using UndertaleModLib;
+using DogScepterLib.Core;
 
 namespace HoloCure.ModLoader.API
 {
@@ -23,7 +23,7 @@ namespace HoloCure.ModLoader.API
         }
 
         /// <inheritdoc cref="IMod.PatchGame"/>
-        public virtual void PatchGame(UndertaleData gameData) {
+        public virtual void PatchGame(GMData gameData) {
         }
 
         /// <inheritdoc cref="IMod.GameStarting"/>
