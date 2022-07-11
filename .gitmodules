@@ -1,6 +1,3 @@
-[submodule "src/lib/UndertaleModTool"]
-	path = src/lib/UndertaleModTool
-	url = https://github.com/krzys-h/UndertaleModTool.git
 [submodule "src/lib/DiffPatch"]
 	path = src/lib/DiffPatch
 	url = https://github.com/Chicken-Bones/DiffPatch.git
