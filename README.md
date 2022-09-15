@@ -1,6 +1,8 @@
+> # ⚠️ This project is not being actively developed, see [steviegt6/holocure-launcher](https://github.com/steviegt6/holocure-launcher).
+
 # HoloCure.ModLoader
 
-A non-YYC GameMaker Studo 2 mod loader, built using [UndertaleModTool](https://github.com/krzys-h/UndertaleModTool) and [YYToolkit](https://github.com/Archie-osu/YYToolkit). Designed for [HoloCure](https://kay-yu.itch.io/holocure) but appropriate elsewhere.
+A non-YYC GameMaker Studio 2 mod loader, built using [DogSCepter](https://github.com/colinator27/DogScepter) and [YYToolkit](https://github.com/Archie-osu/YYToolkit). Designed for [HoloCure](https://kay-yu.itch.io/holocure) but appropriate elsewhere.
 
 ---
 
