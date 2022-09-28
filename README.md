@@ -1,4 +1,5 @@
-> # ⚠️ This project is not being actively developed, see [steviegt6/holocure-launcher](https://github.com/steviegt6/holocure-launcher).
+> **Warning** |
+> This project is not being actively developed, see [steviegt6/holocure-launcher](https://github.com/steviegt6/holocure-launcher).
 
 # HoloCure.ModLoader
 
