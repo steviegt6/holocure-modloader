@@ -3,17 +3,17 @@
 
 # HoloCure.ModLoader
 
-A non-YYC GameMaker Studio 2 mod loader, built using [DogSCepter](https://github.com/colinator27/DogScepter) and [YYToolkit](https://github.com/Archie-osu/YYToolkit). Designed for [HoloCure](https://kay-yu.itch.io/holocure) but appropriate elsewhere.
+A non-YYC GameMaker Studio 2 mod loader, built using [DogScepter](https://github.com/colinator27/DogScepter) and [YYToolkit](https://github.com/Archie-osu/YYToolkit). Designed for [HoloCure](https://kay-yu.itch.io/holocure) but appropriate elsewhere.
 
 ---
 
-I love modding, you love modding, everyone loves modding; what's not to love? HoloCure.ModLoader is a [free and open-source](https://en.wikipedia.org/wiki/Free_and_open-source_software) mod loader and modding API for [HoloCure](https://kay-yu.itch.io/holocure). You should check it out if you haven't already.
+I love modding, you love modding, everyone loves modding; what's not to love? HoloCure.ModLoader is a [free and open-source](https://en.wikipedia.org/wiki/Free_and_open-source_software) mod loader and modding API for [HoloCure](https://kay-yu.itch.io/holocure) (you should check it out if you haven't already).
 
 ## !! ATTENTION !!
 
 Until a stable release (1.0.0) is reached, I will not be guaranteeing [SemVer](https://semver.org/)-compatible versioning. Things will be prone to breaking as updates occur.
 
-Furthermore, the current state of this project's code is, put simply, primitive. Primitive and ugly. Primivite, ugly, and non-permanent. It will be changing as time stretches on. There is no guarantee that your mod for your game will remain stable.
+Furthermore, the current state of this project's code is, put simply, primitive. Primitive and ugly. Primivite, ugly, and impermanent. It will be changing as time stretches on. There is no guarantee that your mod for your game will remain stable.
 
 Additionally, the HoloCure API (`HoloCure.API`) will _never_ be fully SemVer compliant due to the fickle nature of the game's codebase. This is an unavoidable fact. I will try to keep the API externally consistent, however.
 
@@ -62,5 +62,5 @@ Despite the naming, HoloCure.ModLoader projects may be used for other purposes.
 | `HoloCure.ModLoader.Logging`   | Simple logging library.                                                                                                                                                                             |
 | `HoloCure.ModLoader.Updater`   | Simple abstractions to partially simplify handling updates.                                                                                                                                         |
 | `Konata.Windows`               | Windows bootstrapper for launching YYToolkit.                                                                                                                                                       |
-| `UndertaleModLib`              | Submodule clone of [krzys-h/UndertaleModTool](https://github.com/krzys-h/UndertaleModTool/tree/master), used for modifying GameMaker data.                                                          |
-| `DiffPatch`                    | Submodule clone of [Chicken-Bones/DiffPatch](https://github.com/Chicken-Bones/DiffPatch/tree/master), used for handling diffing and raw text patching. Usage kept to a minimum. (Currently unused.) |
+| `DogScepter`              | Submodule clone of [colinator27/DogScepter](https://github.com/colinator27/DogScepter/tree/master), used for modifying GameMaker data.                                                          |
+| `DiffPatch`                    | Submodule clone of [Chicken-Bones/DiffPatch](https://github.com/Chicken-Bones/DiffPatch/tree/master), used for handling diffing and raw text patching. Usage kept to a minimum (currently unused). |
