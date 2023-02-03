@@ -3,6 +3,8 @@
 
 # HoloCure.ModLoader
 
+> [\[discord\]](https://discord.gg/KvqKGQNbhr)
+
 A non-YYC GameMaker Studio 2 mod loader, built using [DogScepter](https://github.com/colinator27/DogScepter) and [YYToolkit](https://github.com/Archie-osu/YYToolkit). Designed for [HoloCure](https://kay-yu.itch.io/holocure) but appropriate elsewhere.
 
 ---
